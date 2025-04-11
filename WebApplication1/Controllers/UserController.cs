@@ -40,13 +40,16 @@ public class UserController : ControllerBase
     {
         var user = _context.Users.FirstOrDefault(u => u.Username == loginRequest.Username);
         if (user == null || !VerifyPassword(loginRequest.PasswordHash, user.PasswordHash))
-            return Unauthorized("Invalid username or password.");
-
-        var token = GenerateJwtToken(user);
-        return Ok(new { Token = token });
+        {
+         
+           return Unauthorized(new { Status = "fail" });
+        }
+       // var token = GenerateJwtToken(user);
+        
+        return Ok(new {  Status = "success" });
     }
 
-    private string GenerateJwtToken(User user)
+  /*  private string GenerateJwtToken(User user)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -66,7 +69,7 @@ public class UserController : ControllerBase
         );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
-    }
+    }*/
 
     // Example methods for password hashing and verification
     private string HashPassword(string password)
