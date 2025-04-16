@@ -36,10 +36,10 @@ public class UserController : ControllerBase
         if (user == null || !(loginRequest.Password == user.Password))
         {
          
-           return Unauthorized(new { Status = "fail",Id="" });
+           return Unauthorized(new { Status = "fail",User="" });
         }
        
-        return Ok(new {  Status = "success",Id=user.Id });
+        return Ok(new {  Status = "success" ,User=user});
     }
 
 }

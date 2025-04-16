@@ -12,7 +12,7 @@ namespace WebApplication1.Models
         [Required]
         public string Password { get; set; } // Store hashed passwords
         public string? Email { get; set; }
-        public string? role { get; set; }
+        public string? role { get; set; }//admin,student
         public string? PhoneNumber { get; set; }
         public string? departement { get; set; }
         public string? semester { get; set; }
