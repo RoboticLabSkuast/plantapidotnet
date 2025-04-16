@@ -15,20 +15,75 @@ public class TreeDataController : ControllerBase
         _env = env;
     }
 
-    [HttpPost]
-    public IActionResult AddTreeData([FromBody] TreeData treeData)
+    [HttpPost("treedataupload")]
+    public async Task<IActionResult> AddTreeDataAsync([FromBody] TreeApidata treeApidata)
     {
-        if (!_context.Users.Any(u => u.Id == treeData.UploadedByUserId))
+        if (!_context.Users.Any(u => u.Id == treeApidata.UserId))
             return BadRequest("Invalid user ID.");
 
-        // Save image to upload folder
-        var imagePath = Path.Combine(_env.WebRootPath, "uploads", treeData.ImageName);
-        var imageBytes = Convert.FromBase64String(treeData.Base64Image);
-        System.IO.File.WriteAllBytes(imagePath, imageBytes);
+        if (!_context.Trees.Any(u => u.TreeId == treeApidata.TreeId))
+            return BadRequest("Invalid Tree ID.");
 
-        _context.TreeDatas.Add(treeData);
+
+        var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
+
+
+        if (!Directory.Exists(uploadsFolder))
+            Directory.CreateDirectory(uploadsFolder);
+
+        var imagePath = await SaveImageAsync(treeApidata.ImageData);
+
+        // Map the received data to the database entity (you can handle this part separately)
+        var entity = new TreeData
+        {
+            ImagePath = imagePath,
+            UserId = treeApidata.UserId,
+            TreeId = treeApidata.TreeId,
+            PhenologicalStage = treeApidata.PhenologicalStage,
+            StageDate = treeApidata.StageDate,
+            GrowthObservations = treeApidata.GrowthObservations,
+            BlossomDensity = treeApidata.BlossomDensity,
+            InputsApplied = treeApidata.InputsApplied,
+            PesticideType = treeApidata.PesticideType,
+            PesticideApplicationDate = treeApidata.PesticideApplicationDate,
+            PesticideQuantity = treeApidata.PesticideQuantity,
+            FertilizerType = treeApidata.FertilizerType,
+            FertilizerApplicationDate = treeApidata.FertilizerApplicationDate,
+            FertilizerQuantity = treeApidata.FertilizerQuantity,
+            ObservedDisease = treeApidata.ObservedDisease,
+            DiseaseSeverity = treeApidata.DiseaseSeverity,
+            DiseasePhotoPath = treeApidata.DiseasePhotoPath,
+            PestIncidence = treeApidata.PestIncidence,
+            PestSeverity = treeApidata.PestSeverity,
+            TreatmentApplied = treeApidata.TreatmentApplied,
+            NutrientDeficiencySymptoms = treeApidata.NutrientDeficiencySymptoms,
+            WeatherDamageReports = treeApidata.WeatherDamageReports,
+            FruitSetPercentage = treeApidata.FruitSetPercentage,
+            HarvestDate = treeApidata.HarvestDate,
+            YieldPerTree = treeApidata.YieldPerTree,
+            FruitQualityParameters = treeApidata.FruitQualityParameters,
+         
+            CreatedDate = DateTime.UtcNow,
+            UpdatedDate = DateTime.UtcNow,
+        };
+        _context.TreeDatas.Add(entity);
         _context.SaveChanges();
 
         return Ok("Tree data added successfully.");
+    }
+    private async Task<string> SaveImageAsync(byte[] imageData)
+    {
+        var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
+
+        if (!Directory.Exists(uploadsFolder))
+            Directory.CreateDirectory(uploadsFolder);
+
+        var fileName = $"{Guid.NewGuid()}.jpg"; // You can change the extension based on the image format
+        var filePath = Path.Combine(uploadsFolder, fileName);
+
+        await System.IO.File.WriteAllBytesAsync(filePath, imageData);
+
+        // Return relative path (you can return full path if needed)
+        return Path.Combine("uploads", fileName).Replace("\\", "/");
     }
 }

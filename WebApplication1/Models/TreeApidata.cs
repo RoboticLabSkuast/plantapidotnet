@@ -1,13 +1,12 @@
 ﻿namespace WebApplication1.Models
 {
-    public class TreeData
+    public class TreeApidata
     {
-        public int Id { get; set; }
         public string TreeId { get; set; }
         public int UserId { get; set; }
 
         // Store the image as a byte array (BLOB)
-        public string ImagePath { get; set; } = string.Empty;
+        public byte[] ImageData { get; set; }
 
         // Phenological Practices
         public string PhenologicalStage { get; set; } = string.Empty;
@@ -42,6 +41,5 @@
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedDate { get; set; } = DateTime.UtcNow;
-
     }
 }

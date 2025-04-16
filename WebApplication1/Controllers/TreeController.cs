@@ -13,7 +13,7 @@ public class TreeController : ControllerBase
         _context = context;
     }
 
-    [HttpPost]
+    [HttpPost("treeregistration")]
     public IActionResult RegisterTree([FromBody] Tree tree)
     {
         if (!_context.Users.Any(u => u.Id == tree.UserId))
