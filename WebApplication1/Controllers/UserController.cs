@@ -33,7 +33,7 @@ public class UserController : ControllerBase
     public IActionResult Login([FromBody] User loginRequest)
     {
         var user = _context.Users.FirstOrDefault(u => u.Username == loginRequest.Username);
-        if (user == null || (loginRequest.Password == user.Password))
+        if (user == null || !(loginRequest.Password == user.Password))
         {
          
            return Unauthorized(new { Status = "fail",Id="" });
