@@ -13,6 +13,7 @@ public class TreeDataController : ControllerBase
     {
         _context = context;
         _env = env;
+      
     }
 
     [HttpPost("treedataupload")]
@@ -28,13 +29,13 @@ public class TreeDataController : ControllerBase
         }
 
 
-  /*      var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
+        var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
 
 
         if (!Directory.Exists(uploadsFolder))
             Directory.CreateDirectory(uploadsFolder);
-  */
-        var imagePath = "a";//await SaveImageAsync(treeApidata.ImageData);
+  
+        var imagePath = await SaveImageAsync(treeApidata.ImageData);
 
         // Map the received data to the database entity (you can handle this part separately)
         var entity = new TreeData
@@ -43,15 +44,15 @@ public class TreeDataController : ControllerBase
             UserId = treeApidata.UserId,
             TreeId = treeApidata.TreeId,
             PhenologicalStage = treeApidata.PhenologicalStage,
-            StageDate = treeApidata.StageDate,
+         //  StageDate = treeApidata.StageDate,
             GrowthObservations = treeApidata.GrowthObservations,
             BlossomDensity = treeApidata.BlossomDensity,
             InputsApplied = treeApidata.InputsApplied,
             PesticideType = treeApidata.PesticideType,
-            PesticideApplicationDate = treeApidata.PesticideApplicationDate,
+          //  PesticideApplicationDate = treeApidata.PesticideApplicationDate,
             PesticideQuantity = treeApidata.PesticideQuantity,
             FertilizerType = treeApidata.FertilizerType,
-            FertilizerApplicationDate = treeApidata.FertilizerApplicationDate,
+          //  FertilizerApplicationDate = treeApidata.FertilizerApplicationDate,
             FertilizerQuantity = treeApidata.FertilizerQuantity,
             ObservedDisease = treeApidata.ObservedDisease,
             DiseaseSeverity = treeApidata.DiseaseSeverity,
@@ -62,12 +63,9 @@ public class TreeDataController : ControllerBase
             NutrientDeficiencySymptoms = treeApidata.NutrientDeficiencySymptoms,
             WeatherDamageReports = treeApidata.WeatherDamageReports,
             FruitSetPercentage = treeApidata.FruitSetPercentage,
-            HarvestDate = treeApidata.HarvestDate,
+          //  HarvestDate = treeApidata.HarvestDate,
             YieldPerTree = treeApidata.YieldPerTree,
-            FruitQualityParameters = treeApidata.FruitQualityParameters,
-         
-            CreatedDate = DateTime.UtcNow,
-            UpdatedDate = DateTime.UtcNow,
+            FruitQualityParameters = treeApidata.FruitQualityParameters
         };
         _context.TreeDatas.Add(entity);
         _context.SaveChanges();

@@ -22,7 +22,7 @@
         public string PesticideQuantity { get; set; } = string.Empty;
         public string FertilizerType { get; set; } = string.Empty;
         public DateTime? FertilizerApplicationDate { get; set; }
-        public string FertilizerQuantity { get; set; }
+        public string FertilizerQuantity { get; set; } = string.Empty;
 
         // Health and Disease Monitoring
         public string ObservedDisease { get; set; } = string.Empty;

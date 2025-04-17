@@ -14,3 +14,10 @@ namespace WebApplication1.Data
         public DbSet<TreeData> TreeDatas { get; set; }
     }
 }
+/*
+
+dotnet ef migrations add alldone
+
+ dotnet ef database update
+
+ * */

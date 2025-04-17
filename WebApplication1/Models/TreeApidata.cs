@@ -6,7 +6,7 @@
         public int UserId { get; set; }
 
         // Store the image as a byte array (BLOB)
-      //  public byte[] ImageData { get; set; }
+       public byte[] ImageData { get; set; }
 
         // Phenological Practices
         public string PhenologicalStage { get; set; } = string.Empty;
