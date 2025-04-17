@@ -15,7 +15,7 @@ public class TreeController : ControllerBase
 
     [HttpPost("treeregistration")]
     public IActionResult RegisterTree([FromBody] Tree tree)
-    {
+    { 
         if (!_context.Users.Any(u => u.Id == tree.UserId))
             return BadRequest("Invalid user ID.");
 
