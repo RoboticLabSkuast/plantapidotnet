@@ -27,6 +27,6 @@ public class TreeController : ControllerBase
         _context.Trees.Add(tree);
         _context.SaveChanges();
 
-        return Ok(new { Status = "Fail", Message = "Tree registered successfully." });
+        return Ok(new { Status = "Success", Message = "Tree registered successfully." });
     }
 }
