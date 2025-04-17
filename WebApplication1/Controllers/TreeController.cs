@@ -19,6 +19,11 @@ public class TreeController : ControllerBase
         if (!_context.Users.Any(u => u.Id == tree.UserId))
             return Ok(new { Status = "fail", Message = "Invalid user ID." });
 
+        if (_context.Trees.Any(u => u.TreeId == tree.TreeId))
+        {
+            return Ok(new { Status = "fail", Message = "Tree ID already exists." });
+        }
+
         _context.Trees.Add(tree);
         _context.SaveChanges();
 

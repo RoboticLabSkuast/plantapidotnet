@@ -19,10 +19,13 @@ public class TreeDataController : ControllerBase
     public async Task<IActionResult> AddTreeDataAsync([FromBody] TreeApidata treeApidata)
     {
         if (!_context.Users.Any(u => u.Id == treeApidata.UserId))
-            Ok(new { Status = "fail", Message = "Invalid user ID." });
-
+        {
+            return Ok(new { Status = "fail", Message = "Invalid user ID." });
+        }
         if (!_context.Trees.Any(u => u.TreeId == treeApidata.TreeId))
-            Ok(new { Status = "fail", Message = "Invalid Tree ID." });
+        {
+            return Ok(new { Status = "fail", Message = "Invalid Tree ID." });
+        }
 
 
         var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
