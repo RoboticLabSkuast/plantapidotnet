@@ -19,10 +19,10 @@ public class TreeDataController : ControllerBase
     public async Task<IActionResult> AddTreeDataAsync([FromBody] TreeApidata treeApidata)
     {
         if (!_context.Users.Any(u => u.Id == treeApidata.UserId))
-            return BadRequest("Invalid user ID.");
+            Ok(new { Status = "fail", Message = "Invalid user ID." });
 
         if (!_context.Trees.Any(u => u.TreeId == treeApidata.TreeId))
-            return BadRequest("Invalid Tree ID.");
+            Ok(new { Status = "fail", Message = "Invalid Tree ID." });
 
 
         var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
@@ -69,7 +69,7 @@ public class TreeDataController : ControllerBase
         _context.TreeDatas.Add(entity);
         _context.SaveChanges();
 
-        return Ok("Tree data added successfully.");
+        return Ok(new { Status = "sucess", Message = "Tree data added successfully." });
     }
     private async Task<string> SaveImageAsync(byte[] imageData)
     {

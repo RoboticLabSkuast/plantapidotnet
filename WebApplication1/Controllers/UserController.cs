@@ -20,13 +20,13 @@ public class UserController : ControllerBase
     {
         if (_context.Users.Any(u => u.Username == user.Username))
             
-            return BadRequest("Username already exists.");
-
+           
+        return Ok(new { Status = "fail", Message = "Username already exists." });
 
         _context.Users.Add(user);
         _context.SaveChanges();
 
-        return Ok("User registered successfully.");
+        return  Ok(new { Status = "success", Message = "User registered successfully." });
     }
 
     [HttpPost("login")]

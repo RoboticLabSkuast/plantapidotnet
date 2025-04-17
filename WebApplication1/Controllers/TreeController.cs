@@ -17,11 +17,11 @@ public class TreeController : ControllerBase
     public IActionResult RegisterTree([FromBody] Tree tree)
     { 
         if (!_context.Users.Any(u => u.Id == tree.UserId))
-            return BadRequest("Invalid user ID.");
+            return Ok(new { Status = "fail", Message = "Invalid user ID." });
 
         _context.Trees.Add(tree);
         _context.SaveChanges();
 
-        return Ok("Tree registered successfully.");
+        return Ok(new { Status = "fail", Message = "Tree registered successfully." });
     }
 }
