@@ -17,16 +17,16 @@ public class TreeController : ControllerBase
     public IActionResult RegisterTree([FromBody] Tree tree)
     { 
         if (!_context.Users.Any(u => u.Id == tree.UserId))
-            return Ok(new { Status = "fail", Message = "Invalid user ID." });
+            return Ok(new { Status = "Fail", Message = "Invalid user ID." });
 
         if (_context.Trees.Any(u => u.TreeId == tree.TreeId))
         {
-            return Ok(new { Status = "fail", Message = "Tree ID already exists." });
+            return Ok(new { Status = "Fail", Message = "Tree ID already exists." });
         }
 
         _context.Trees.Add(tree);
         _context.SaveChanges();
 
-        return Ok(new { Status = "fail", Message = "Tree registered successfully." });
+        return Ok(new { Status = "Fail", Message = "Tree registered successfully." });
     }
 }

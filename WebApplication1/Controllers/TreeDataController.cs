@@ -21,11 +21,11 @@ public class TreeDataController : ControllerBase
     {
         if (!_context.Users.Any(u => u.Id == treeApidata.UserId))
         {
-            return Ok(new { Status = "fail", Message = "Invalid user ID." });
+            return Ok(new { Status = "Fail", Message = "Invalid user ID." });
         }
         if (!_context.Trees.Any(u => u.TreeId == treeApidata.TreeId))
         {
-            return Ok(new { Status = "fail", Message = "Invalid Tree ID." });
+            return Ok(new { Status = "Fail", Message = "Invalid Tree ID." });
         }
 
 
@@ -70,7 +70,7 @@ public class TreeDataController : ControllerBase
         _context.TreeDatas.Add(entity);
         _context.SaveChanges();
 
-        return Ok(new { Status = "sucess", Message = "Tree data added successfully." });
+        return Ok(new { Status = "Success", Message = "Tree data added successfully." });
     }
     private async Task<string> SaveImageAsync(byte[] imageData)
     {

@@ -21,12 +21,12 @@ public class UserController : ControllerBase
         if (_context.Users.Any(u => u.Username == user.Username))
             
            
-        return Ok(new { Status = "fail", Message = "Username already exists." });
+        return Ok(new { Status = "Fail", Message = "Username already exists." });
 
         _context.Users.Add(user);
         _context.SaveChanges();
 
-        return  Ok(new { Status = "success", Message = "User registered successfully." });
+        return  Ok(new { Status = "Success", Message = "User registered successfully." });
     }
 
     [HttpPost("login")]
@@ -36,10 +36,10 @@ public class UserController : ControllerBase
         if (user == null || !(loginRequest.Password == user.Password))
         {
          
-           return Unauthorized(new { Status = "fail",User="" });
+           return Unauthorized(new { Status = "Fail",User="" });
         }
        
-        return Ok(new {  Status = "success" ,User=user});
+        return Ok(new {  Status = "Success" ,User=user});
     }
 
 }
