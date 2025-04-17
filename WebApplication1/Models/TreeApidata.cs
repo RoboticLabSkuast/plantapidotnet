@@ -17,10 +17,10 @@
         // Management Practices
         public string InputsApplied { get; set; } = string.Empty;
         public string PesticideType { get; set; } = string.Empty;
-        public DateTime? PesticideApplicationDate { get; set; }
+        public DateTime PesticideApplicationDate { get; set; }
         public string PesticideQuantity { get; set; } = string.Empty;
         public string FertilizerType { get; set; } = string.Empty;
-        public DateTime? FertilizerApplicationDate { get; set; }
+        public DateTime FertilizerApplicationDate { get; set; }
         public string FertilizerQuantity { get; set; } = string.Empty;
 
         // Health and Disease Monitoring
@@ -35,7 +35,7 @@
 
         // Yield and Productivity
         public string FruitSetPercentage { get; set; }= string.Empty;
-        public DateTime? HarvestDate { get; set; }
+        public DateTime HarvestDate { get; set; }
         public string YieldPerTree { get; set; } = string.Empty;
         public string FruitQualityParameters { get; set; } = string.Empty;
 
