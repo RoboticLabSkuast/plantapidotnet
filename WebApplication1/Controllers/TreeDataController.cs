@@ -28,13 +28,13 @@ public class TreeDataController : ControllerBase
         }
 
 
-        var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
+  /*      var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
 
 
         if (!Directory.Exists(uploadsFolder))
             Directory.CreateDirectory(uploadsFolder);
-
-        var imagePath = await SaveImageAsync(treeApidata.ImageData);
+  */
+        var imagePath = "a";//await SaveImageAsync(treeApidata.ImageData);
 
         // Map the received data to the database entity (you can handle this part separately)
         var entity = new TreeData

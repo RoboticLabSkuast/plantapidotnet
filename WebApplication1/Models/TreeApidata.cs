@@ -6,22 +6,22 @@
         public int UserId { get; set; }
 
         // Store the image as a byte array (BLOB)
-        public byte[] ImageData { get; set; }
+      //  public byte[] ImageData { get; set; }
 
         // Phenological Practices
         public string PhenologicalStage { get; set; } = string.Empty;
         public DateTime StageDate { get; set; }
         public string GrowthObservations { get; set; } = string.Empty;
-        public int? BlossomDensity { get; set; }
+        public string BlossomDensity { get; set; } = string.Empty;
 
         // Management Practices
         public string InputsApplied { get; set; } = string.Empty;
         public string PesticideType { get; set; } = string.Empty;
         public DateTime? PesticideApplicationDate { get; set; }
-        public double? PesticideQuantity { get; set; }
+        public string PesticideQuantity { get; set; } = string.Empty;
         public string FertilizerType { get; set; } = string.Empty;
         public DateTime? FertilizerApplicationDate { get; set; }
-        public double? FertilizerQuantity { get; set; }
+        public string FertilizerQuantity { get; set; } = string.Empty;
 
         // Health and Disease Monitoring
         public string ObservedDisease { get; set; } = string.Empty;
@@ -34,9 +34,9 @@
         public string WeatherDamageReports { get; set; } = string.Empty;
 
         // Yield and Productivity
-        public double? FruitSetPercentage { get; set; }
+        public string FruitSetPercentage { get; set; }= string.Empty;
         public DateTime? HarvestDate { get; set; }
-        public double? YieldPerTree { get; set; }
+        public string YieldPerTree { get; set; } = string.Empty;
         public string FruitQualityParameters { get; set; } = string.Empty;
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
