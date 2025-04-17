@@ -35,7 +35,7 @@ public class TreeDataController : ControllerBase
         if (!Directory.Exists(uploadsFolder))
             Directory.CreateDirectory(uploadsFolder);
   
-        var imagePath = await SaveImageAsync(treeApidata.ImageData);
+        var imagePath = await SaveImageAsync(treeApidata.ImageData,treeApidata.TreeId);
 
         // Map the received data to the database entity (you can handle this part separately)
         var entity = new TreeData
@@ -72,14 +72,14 @@ public class TreeDataController : ControllerBase
 
         return Ok(new { Status = "Success", Message = "Tree data added successfully." });
     }
-    private async Task<string> SaveImageAsync(byte[] imageData)
+    private async Task<string> SaveImageAsync(byte[] imageData,string treeid)
     {
         var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
 
         if (!Directory.Exists(uploadsFolder))
             Directory.CreateDirectory(uploadsFolder);
 
-        var fileName = $"{Guid.NewGuid()}.jpg"; // You can change the extension based on the image format
+        var fileName = $"{treeid}_{Guid.NewGuid()}.jpg"; // You can change the extension based on the image format
         var filePath = Path.Combine(uploadsFolder, fileName);
 
         await System.IO.File.WriteAllBytesAsync(filePath, imageData);
