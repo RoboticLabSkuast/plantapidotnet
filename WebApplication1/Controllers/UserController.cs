@@ -41,5 +41,17 @@ public class UserController : ControllerBase
        
         return Ok(new {  Status = "Success" ,User=user});
     }
+    [HttpGet("getAllUsers")]
+    public IActionResult GetAllUsers()
+    {
+        var users = _context.Users.ToList(); // This retrieves all users from the database
+        if (users == null || users.Count == 0)
+        {
+            return NotFound(new { Status = "Fail", Message = "No users found" });
+        }
+
+        return Ok(new { Status = "Success", Users = users });
+    }
+
 
 }
