@@ -88,4 +88,61 @@ public class TreeDataController : ControllerBase
         // Return relative path (you can return full path if needed)
         return Path.Combine("uploads", fileName).Replace("\\", "/");
     }
+    [HttpGet("gettreeanddata/{treeId}")]
+    public IActionResult GetTreeAndData(string treeId)
+    {
+        var tree = _context.Trees.FirstOrDefault(t => t.TreeId == treeId);
+        if (tree == null)
+        {
+            return NotFound(new { Status = "Fail", Message = "Tree not found." });
+        }
+
+        var treeDataList = _context.TreeDatas
+            .Where(td => td.TreeId == treeId)
+            .OrderByDescending(td => td.StageDate)
+            .ToList();
+        foreach (var treeData in treeDataList)
+        {
+            treeData.ImagePath = ConvertImagePathToBase64(treeData.ImagePath);
+        }
+        var result = new TreeGetApi
+        {
+            Tree = tree,
+            TreeDataList = treeDataList
+        };
+
+        return Ok(new { Status = "Success", Data = result });
+    }
+    [HttpGet("getregisteredtrees")]
+    public IActionResult GetRegisteredTrees()
+    {
+        var trees = _context.Trees
+            .Select(t => new RegisterTreeGetapi
+            {
+                TreeId = t.TreeId,
+                Variety = t.Variety,
+                Location = t.Location,
+                Region = t.Region,
+                OrchardName = t.OrchardName
+            })
+            .OrderBy(t => t.TreeId)
+            .ToList();
+
+        return Ok(new { Status = "Success", Data = trees });
+    }
+
+    private string ConvertImagePathToBase64(string imagePath)
+    {
+        if (string.IsNullOrEmpty(imagePath)) return string.Empty;
+
+        var fullPath = Path.Combine(_env.WebRootPath, imagePath.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+
+        if (!System.IO.File.Exists(fullPath)) return string.Empty;
+
+        var imageBytes = System.IO.File.ReadAllBytes(fullPath);
+        return Convert.ToBase64String(imageBytes);
+    }
+
+
+
 }
