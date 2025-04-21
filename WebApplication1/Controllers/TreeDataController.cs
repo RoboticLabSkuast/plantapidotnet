@@ -111,7 +111,7 @@ public class TreeDataController : ControllerBase
             TreeDataList = treeDataList
         };
 
-        return Ok(new { Status = "Success", Data = result });
+        return Ok(new { Status = "Success", Trees = result });
     }
     [HttpGet("getregisteredtrees")]
     public IActionResult GetRegisteredTrees()
@@ -128,7 +128,7 @@ public class TreeDataController : ControllerBase
             .OrderBy(t => t.TreeId)
             .ToList();
 
-        return Ok(new { Status = "Success", Data = trees });
+        return Ok(new { Status = "Success", Trees= trees });
     }
 
     private string ConvertImagePathToBase64(string imagePath)
