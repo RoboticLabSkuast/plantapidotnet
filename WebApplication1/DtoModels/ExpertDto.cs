@@ -11,7 +11,7 @@
         public string address { get; set; } = string.Empty;
         public string specialization { get; set; } = string.Empty;
 
-        public required string password { get; set; } // URL to the expert's image
+        public  string password { get; set; } // URL to the expert's image
         public string bio { get; set; } = string.Empty; // Short biography of the expert
     }
 }

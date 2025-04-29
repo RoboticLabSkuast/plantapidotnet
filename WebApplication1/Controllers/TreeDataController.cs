@@ -39,7 +39,7 @@ public class TreeDataController : ControllerBase
        
 
 
-        return Ok(new { Status = "Success", Trees = treeGetDto });
+        return Ok(new { Trees = treeGetDto });
     }
 
     /* [HttpPost("treedataupload")]

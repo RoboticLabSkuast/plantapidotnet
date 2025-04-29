@@ -51,8 +51,17 @@ public class UserController : ControllerBase
          
            return Unauthorized(new { Status = "Fail",User="" });
         }
-       
-        return Ok(new {  Status = "Success" ,User=user});
+        ExpertDto expert = new ExpertDto { 
+            username=user.username,
+            role = user.role,
+            name = user.name,
+            email = user.email,
+            phone = user.phone,
+            address = user.address,
+            specialization = user.specialization,
+            bio = user.bio
+        };
+        return Ok(new {  Status = "Success" ,User= expert });
     }
     [HttpGet("getAllUsers")]
     public IActionResult GetAllUsers()
