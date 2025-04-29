@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Data;
+using WebApplication1.DtoModels;
 using WebApplication1.Models;
+using WebApplication1.old;
 namespace WebApplication1.Controllers;
 [ApiController]
 [Route("api/[controller]")]
@@ -16,24 +18,35 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("register")]
-    public IActionResult Register([FromBody] User user)
+    public IActionResult Register([FromBody] ExpertDto user)
     {
-        if (_context.Users.Any(u => u.Username == user.Username))
+        if (_context.expertEntity.Any(u => u.username == user.username))
             
            
         return Ok(new { Status = "Fail", Message = "Username already exists." });
-
-        _context.Users.Add(user);
+        ExpertEntity newUser = new ExpertEntity
+        {
+            username = user.username,
+            role = user.role,
+            name = user.name,
+            email = user.email,
+            phone = user.phone,
+            address = user.address,
+            specialization = user.specialization,
+            password = user.password, // In a real application, hash the password before storing it
+            bio = user.bio
+        };
+        _context.expertEntity.Add(newUser);
         _context.SaveChanges();
 
         return  Ok(new { Status = "Success", Message = "User registered successfully." });
     }
 
     [HttpPost("login")]
-    public IActionResult Login([FromBody] User loginRequest)
+    public IActionResult Login([FromBody] LoginUserClass loginRequest)
     {
-        var user = _context.Users.FirstOrDefault(u => u.Username == loginRequest.Username);
-        if (user == null || !(loginRequest.Password == user.Password))
+        var user = _context.expertEntity.FirstOrDefault(u => u.username == loginRequest.username);
+        if (user == null || !(loginRequest.password == user.password))
         {
          
            return Unauthorized(new { Status = "Fail",User="" });
@@ -44,7 +57,7 @@ public class UserController : ControllerBase
     [HttpGet("getAllUsers")]
     public IActionResult GetAllUsers()
     {
-        var users = _context.Users.ToList(); // This retrieves all users from the database
+        var users = _context.expertEntity.ToList(); // This retrieves all users from the database
         if (users == null || users.Count == 0)
         {
             return NotFound(new { Status = "Fail", Message = "No users found" });

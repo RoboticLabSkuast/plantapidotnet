@@ -1,9 +1,11 @@
-﻿namespace WebApplication1.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebApplication1.Models
 {
-    public class RegisterTreeGetapi
+    public class RegisterTreeGetapi : BaseEntity
     {
-       
-            public string TreeId { get; set; }
+        [Key]
+        public string TreeId { get; set; }
             public string Variety { get; set; }
             public string Location { get; set; }
             public string Region { get; set; }

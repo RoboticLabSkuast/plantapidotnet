@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApplication1.Data;
@@ -11,9 +12,11 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250429073834_finala")]
+    partial class finala
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,12 +36,20 @@ namespace WebApplication1.Migrations
                     b.Property<DateTime>("createdOn")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int?>("crop_id1")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("disease_id1")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("updatedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("crop_id", "disease_id");
 
-                    b.HasIndex("disease_id");
+                    b.HasIndex("crop_id1");
+
+                    b.HasIndex("disease_id1");
 
                     b.ToTable("cropDiseasesEntities");
                 });
@@ -54,12 +65,20 @@ namespace WebApplication1.Migrations
                     b.Property<DateTime>("createdOn")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int?>("crop_id1")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("disorder_id1")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("updatedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("crop_id", "disorder_id");
 
-                    b.HasIndex("disorder_id");
+                    b.HasIndex("crop_id1");
+
+                    b.HasIndex("disorder_id1");
 
                     b.ToTable("cropDisorderEntities");
                 });
@@ -75,6 +94,9 @@ namespace WebApplication1.Migrations
                     b.Property<DateTime>("createdOn")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int?>("crop_id1")
+                        .HasColumnType("integer");
+
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -87,6 +109,8 @@ namespace WebApplication1.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("crop_id");
+
+                    b.HasIndex("crop_id1");
 
                     b.ToTable("cropsEntity");
                 });
@@ -445,83 +469,6 @@ namespace WebApplication1.Migrations
                     b.ToTable("rootstocksEntity");
                 });
 
-            modelBuilder.Entity("WebApplication1.Models.TreesTable", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
-
-                    b.Property<string>("agroClimaticZone")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("coloum")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("createdOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("crop_id")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("expert_id")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("graftingAge")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("latitude")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("location")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("longitude")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("plantAge")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("plantStatus")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("region")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("rootstock_id")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("row")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("updatedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("variety_id")
-                        .HasColumnType("integer");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("crop_id");
-
-                    b.HasIndex("expert_id");
-
-                    b.HasIndex("rootstock_id");
-
-                    b.HasIndex("variety_id");
-
-                    b.ToTable("treesTables");
-                });
-
             modelBuilder.Entity("WebApplication1.Models.VarietiesEntity", b =>
                 {
                     b.Property<int>("variety_id")
@@ -557,15 +504,11 @@ namespace WebApplication1.Migrations
                 {
                     b.HasOne("WebApplication1.Models.CropEntity", "Crop")
                         .WithMany()
-                        .HasForeignKey("crop_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("crop_id1");
 
                     b.HasOne("WebApplication1.Models.DiseasesEntity", "Disease")
                         .WithMany()
-                        .HasForeignKey("disease_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("disease_id1");
 
                     b.Navigation("Crop");
 
@@ -576,19 +519,24 @@ namespace WebApplication1.Migrations
                 {
                     b.HasOne("WebApplication1.Models.CropEntity", "Crop")
                         .WithMany()
-                        .HasForeignKey("crop_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("crop_id1");
 
                     b.HasOne("WebApplication1.Models.PhysiologicalDisorderEntity", "Disorder")
                         .WithMany()
-                        .HasForeignKey("disorder_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("disorder_id1");
 
                     b.Navigation("Crop");
 
                     b.Navigation("Disorder");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.CropEntity", b =>
+                {
+                    b.HasOne("WebApplication1.Models.CropEntity", "Crop")
+                        .WithMany()
+                        .HasForeignKey("crop_id1");
+
+                    b.Navigation("Crop");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.CropPestsEntity", b =>
@@ -660,41 +608,6 @@ namespace WebApplication1.Migrations
                         .HasForeignKey("crop_id1");
 
                     b.Navigation("Crop");
-                });
-
-            modelBuilder.Entity("WebApplication1.Models.TreesTable", b =>
-                {
-                    b.HasOne("WebApplication1.Models.CropEntity", "crop")
-                        .WithMany()
-                        .HasForeignKey("crop_id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication1.Models.ExpertEntity", "expert")
-                        .WithMany()
-                        .HasForeignKey("expert_id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication1.Models.RootstocksEntity", "rootstock")
-                        .WithMany()
-                        .HasForeignKey("rootstock_id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication1.Models.VarietiesEntity", "variety")
-                        .WithMany()
-                        .HasForeignKey("variety_id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("crop");
-
-                    b.Navigation("expert");
-
-                    b.Navigation("rootstock");
-
-                    b.Navigation("variety");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.VarietiesEntity", b =>
