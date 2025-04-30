@@ -53,7 +53,7 @@ public class TreeController : ControllerBase
 
 
         TreesTable crop = new TreesTable
-        {
+        { expert_id=tree.expert_id,
             crop_id = cropentity.crop_id,
             variety_id = variety.variety_id,
             rootstock_id = rootstock.rootstock_id,

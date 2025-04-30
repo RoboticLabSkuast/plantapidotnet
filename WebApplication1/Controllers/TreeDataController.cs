@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using datacapture.model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 using WebApplication1.DtoModels;
 using WebApplication1.Models;
+using WebApplication1.old;
 
 namespace  WebApplication1.Controllers;
 [ApiController]
@@ -33,7 +35,9 @@ public class TreeDataController : ControllerBase
             {
                 name = tree.crop.name,
                 varietyName = tree.variety.name,
-                rootstockName = tree.rootstock.name
+                rootstockName = tree.rootstock.name,
+                qrcodeTreeId=qrcodeTreeDt
+
             };
         
        
@@ -41,15 +45,34 @@ public class TreeDataController : ControllerBase
 
         return Ok(new { Trees = treeGetDto });
     }
+    [HttpGet("getregisteredtrees")]
+    public IActionResult GetRegisteredTrees()
+    {
+        var trees  = _context.treesTables.Include(t => t.crop)
+            .Select(t => new RegisterTreeGetapi
+            {
+                qrcodeTree = t.crop.qrcodeTree,
+                Variety = t.variety.name,
+              //  Location = t.Location,
+                Region = t.location,
+                CropName = t.crop.name,
+                
+            })
+           
+            .ToList();
 
-    /* [HttpPost("treedataupload")]
-     public async Task<IActionResult> AddTreeDataAsync([FromBody] TreeApidata treeApidata)
+        return Ok(new { Status = "Success", Trees = trees });
+    }
+
+    [HttpPost("treedataupload")]
+     public async Task<IActionResult> AddTreeDataAsync([FromBody] UploadClass treeApidata)
      {
-         if (!_context.expertEntity.Any(u => u.expert_id == treeApidata.UserId))
+        /* if (!_context.expertEntity.Any(u => u.expert_id == treeApidata.UserId))
          {
              return Ok(new { Status = "Fail", Message = "Invalid user ID." });
-         }
-         if (!_context.expertEntity.Any(u => u == treeApidata.TreeId))
+         }*/
+         if (!_context.treesTables.Include(u=>u.crop)
+            .Any(u => u.crop.qrcodeTree == treeApidata.qrcodeTreeId))
          {
              return Ok(new { Status = "Fail", Message = "Invalid Tree ID." });
          }
@@ -61,39 +84,14 @@ public class TreeDataController : ControllerBase
          if (!Directory.Exists(uploadsFolder))
              Directory.CreateDirectory(uploadsFolder);
 
-         var imagePath = await SaveImageAsync(treeApidata.ImageData,treeApidata.TreeId);
+         var imagePath = await SaveImageAsync(treeApidata.ImageData,treeApidata.qrcodeTreeId);
 
          // Map the received data to the database entity (you can handle this part separately)
-         var entity = new TreeData
+         var entity = new ObservationEntity
          {
-             ImagePath = imagePath,
-             UserId = treeApidata.UserId,
-             TreeId = treeApidata.TreeId,
-             PhenologicalStage = treeApidata.PhenologicalStage,
-            StageDate = treeApidata.StageDate.ToUniversalTime(),
-             GrowthObservations = treeApidata.GrowthObservations,
-             BlossomDensity = treeApidata.BlossomDensity,
-             InputsApplied = treeApidata.InputsApplied,
-             PesticideType = treeApidata.PesticideType,
-            PesticideApplicationDate = treeApidata.PesticideApplicationDate.ToUniversalTime(),
-             PesticideQuantity = treeApidata.PesticideQuantity,
-             FertilizerType = treeApidata.FertilizerType,
-             FertilizerApplicationDate = treeApidata.FertilizerApplicationDate.ToUniversalTime(),
-             FertilizerQuantity = treeApidata.FertilizerQuantity,
-             ObservedDisease = treeApidata.ObservedDisease,
-             DiseaseSeverity = treeApidata.DiseaseSeverity,
-             DiseasePhotoPath = treeApidata.DiseasePhotoPath,
-             PestIncidence = treeApidata.PestIncidence,
-             PestSeverity = treeApidata.PestSeverity,
-             TreatmentApplied = treeApidata.TreatmentApplied,
-             NutrientDeficiencySymptoms = treeApidata.NutrientDeficiencySymptoms,
-             WeatherDamageReports = treeApidata.WeatherDamageReports,
-             FruitSetPercentage = treeApidata.FruitSetPercentage,
-               HarvestDate = treeApidata.HarvestDate.ToUniversalTime(),
-             YieldPerTree = treeApidata.YieldPerTree,
-             FruitQualityParameters = treeApidata.FruitQualityParameters
+            
          };
-         _context.TreeDatas.Add(entity);
+       //  _context.TreeDatas.Add(entity);
          _context.SaveChanges();
 
          return Ok(new { Status = "Success", Message = "Tree data added successfully." });
@@ -114,7 +112,7 @@ public class TreeDataController : ControllerBase
          // Return relative path (you can return full path if needed)
          return Path.Combine("uploads", fileName).Replace("\\", "/");
      }
-     [HttpGet("gettreeanddata/{treeId}")]
+  /*   [HttpGet("gettreeanddata/{treeId}")]
      public IActionResult GetTreeAndData(string treeId)
      {
          var tree = _context.Trees.FirstOrDefault(t => t.TreeId == treeId);

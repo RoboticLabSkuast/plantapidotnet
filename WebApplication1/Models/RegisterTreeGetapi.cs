@@ -4,13 +4,13 @@ namespace WebApplication1.Models
 {
     public class RegisterTreeGetapi : BaseEntity
     {
-        [Key]
-        public string TreeId { get; set; }
-            public string Variety { get; set; }
-            public string Location { get; set; }
-            public string Region { get; set; }
-            public string OrchardName { get; set; }
-        
+       
+        public string qrcodeTree { get; set; }=string.Empty;
+         public string Variety { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
+        public string Region { get; set; } = string.Empty;
+        public string CropName { get; set; } = string.Empty;
+
 
     }
 }

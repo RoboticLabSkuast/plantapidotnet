@@ -6,7 +6,6 @@ namespace WebApplication1.Models
     {
        
         public int crop_id { get; set; }
-       
         public string qrcodeTree { get; set; } = string.Empty;
         public string name { get; set; }
 

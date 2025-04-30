@@ -4,7 +4,7 @@ namespace WebApplication1.Models
 {
     public class ExpertEntity : BaseEntity
     {
-        [Key]
+      
         public int expert_id { get; set; }
         public required string username { get; set; } // Unique username for the expert
         public required string role { get; set; } // Role of the expert (e.g., "Agronomist", "Veterinarian")

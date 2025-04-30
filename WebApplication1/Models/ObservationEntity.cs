@@ -1,17 +1,42 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
-    public class ObservationEntity : BaseEntity
+    public class ObservationEntity
     {
-        [Key]
-        public int observation_id { get; set; } // Unique identifier for the observation
-        public int crop_id { get; set; } // Foreign key to Crops
-       public int variety_id { get; set; }
-        public int rootstock_id { get; set; }
-        public int stage_id { get; set; } // Foreign key to Stages
-        public DateTime observedAt { get; set; }
-        public string notes { get; set; } // Additional notes about the observation
+       
+        public int observationEntity_Id { get; set; }
 
+
+       
+        public int crop_id { get; set; }
+     
+        public CropEntity? crop { get; set; }
+
+
+       
+        public int yieldandProductivityEntity_Id { get; set; }
+       
+        public YieldandProductivityEntity? yieldandProductivityEntity { get; set; }
+
+
+      
+        public int phenologicalEntity_Id { get; set; }
+     
+        public PhenologicalEntity? phenologicalEntity { get; set; }
+
+      
+        public int managementPraticesEntity_Id { get; set; }
+
+      
+        public ManagementPraticesEntity? managementPraticesEntity { get; set; }
+
+
+
+      
+        public int healthandDiseaseEntity_Id { get; set; }
+     
+        public HealthandDiseaseEntity? healthandDiseaseEntity { get; set; }
     }
 }
