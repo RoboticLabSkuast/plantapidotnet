@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApplication1.Data;
@@ -11,9 +12,11 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250430154926_alldone")]
+    partial class alldone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,7 +287,7 @@ namespace WebApplication1.Migrations
 
                     b.HasIndex("phenologicalStageEntity_Id");
 
-                    b.ToTable("phenologicalEntities");
+                    b.ToTable("PhenologicalEntity");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.PhenologicalStageEntity", b =>
@@ -301,7 +304,7 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("phenologicalStageEntity_Id");
 
-                    b.ToTable("phenologicalStageEntities");
+                    b.ToTable("phenlogicalStageEntities");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.RootstocksEntity", b =>

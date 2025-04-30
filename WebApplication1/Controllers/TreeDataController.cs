@@ -67,36 +67,108 @@ public class TreeDataController : ControllerBase
     [HttpPost("treedataupload")]
      public async Task<IActionResult> AddTreeDataAsync([FromBody] UploadClass treeApidata)
      {
-        /* if (!_context.expertEntity.Any(u => u.expert_id == treeApidata.UserId))
-         {
-             return Ok(new { Status = "Fail", Message = "Invalid user ID." });
-         }*/
-         if (!_context.treesTables.Include(u=>u.crop)
-            .Any(u => u.crop.qrcodeTree == treeApidata.qrcodeTreeId))
-         {
-             return Ok(new { Status = "Fail", Message = "Invalid Tree ID." });
-         }
+        var crop = _context.treesTables
+       .Include(u => u.crop)
+       .Select(u => u.crop)
+       .FirstOrDefault(c => c.qrcodeTree == treeApidata.qrcodeTreeId);
+
+        if (crop == null)
+        {
+            return Ok(new { Status = "Fail", Message = "Invalid Tree ID." });
+        }
 
 
-         var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
+        var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
 
 
          if (!Directory.Exists(uploadsFolder))
              Directory.CreateDirectory(uploadsFolder);
 
          var imagePath = await SaveImageAsync(treeApidata.ImageData,treeApidata.qrcodeTreeId);
+        var phenologicalStage = _context.phenologicalStageEntities
+      .FirstOrDefault(s => s.stage == treeApidata.phenological.stage);
 
-         // Map the received data to the database entity (you can handle this part separately)
-         var entity = new ObservationEntity
-         {
-            
-         };
-       //  _context.TreeDatas.Add(entity);
-         _context.SaveChanges();
+        if (phenologicalStage == null)
+        {
+            phenologicalStage = new PhenologicalStageEntity
+            {
+                stage = treeApidata.phenological.stage
+            };
+            _context.phenologicalStageEntities.Add(phenologicalStage);
+            await _context.SaveChangesAsync();
+        }
 
-         return Ok(new { Status = "Success", Message = "Tree data added successfully." });
-     }
-     private async Task<string> SaveImageAsync(byte[] imageData,string treeid)
+        var phenologicalEntity = new PhenologicalEntity
+        {
+            phenologicalStageEntity_Id = phenologicalStage.phenologicalStageEntity_Id,
+            PhenlogicalStageEntity = phenologicalStage,
+            StageDate = treeApidata.phenological.StageDate,
+            growthScale = treeApidata.phenological.growthScale,
+            blossomDensity = treeApidata.phenological.blossomDensity
+        };
+        _context.phenologicalEntities.Add(phenologicalEntity);
+        await _context.SaveChangesAsync();
+
+        var healthEntity = new HealthandDiseaseEntity
+        {
+            ObservedDisease = treeApidata.healthandDisease.ObservedDisease,
+            ObservedDiseaseLevel = treeApidata.healthandDisease.ObservedDiseaseLevel,
+            Insects = treeApidata.healthandDisease.Insects,
+            InsectsLevel = treeApidata.healthandDisease.InsectsLevel,
+            PhysiologicalDisorder = treeApidata.healthandDisease.PhysiologicalDisorder,
+            PhysiologicalDisorderLevel = treeApidata.healthandDisease.PhysiologicalDisorderLevel,
+            NurientDefiency = treeApidata.healthandDisease.NurientDefiency,
+            DamageReport = treeApidata.healthandDisease.DamageReport
+        };
+        _context.healthandEntity.Add(healthEntity);
+        await _context.SaveChangesAsync();
+
+        var managementEntity = new ManagementPraticesEntity
+        {
+            fertilizer = treeApidata.managementPractices.fertilizer,
+            fertilizerDateTime = treeApidata.managementPractices.fertilizerDateTime,
+            fertilizerAmount = treeApidata.managementPractices.fertilizerAmount,
+            micronutrients = treeApidata.managementPractices.micronutrients,
+            micronutrientsDateTime = treeApidata.managementPractices.micronutrientsDateTime,
+            micronutrientsAmount = treeApidata.managementPractices.micronutrientsAmount,
+            weedControl = treeApidata.managementPractices.weedControl,
+            weedControlDateTime = treeApidata.managementPractices.weedControlDateTime,
+            weedControlAmount = treeApidata.managementPractices.weedControlAmount
+        };
+        _context.managementPraticesEntities.Add(managementEntity);
+        await _context.SaveChangesAsync();
+
+        var yieldEntity = new YieldandProductivityEntity
+        {
+            fruitSetPercent = treeApidata.yieldandProductivity.fruitSetPercent,
+            harvestDate = treeApidata.yieldandProductivity.harvestDate,
+            yieldAmount = treeApidata.yieldandProductivity.yieldAmount,
+            FruitQuality = treeApidata.yieldandProductivity.FruitQuality
+        };
+        _context.yieldandProductivityEntities.Add(yieldEntity);
+        await _context.SaveChangesAsync();
+
+        // 5. Create main ObservationEntity
+        var observation = new ObservationEntity
+        {
+            crop_id = crop.crop_id,
+            crop = crop,
+            phenologicalEntity_Id = phenologicalEntity.PhenologicalEntity_Id,
+            phenologicalEntity = phenologicalEntity,
+            healthandDiseaseEntity_Id = healthEntity.healthandDiseaseEntity_Id,
+            healthandDiseaseEntity = healthEntity,
+            managementPraticesEntity_Id = managementEntity.managementPraticesEntity_Id,
+            managementPraticesEntity = managementEntity,
+            yieldandProductivityEntity_Id = yieldEntity.yieldandProductivityEntity_Id,
+            yieldandProductivityEntity = yieldEntity
+        };
+        _context.observationEntity.Add(observation);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { Status = "Success", Message = "Tree data added successfully." });
+    }
+    
+    private async Task<string> SaveImageAsync(byte[] imageData,string treeid)
      {
          var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
 

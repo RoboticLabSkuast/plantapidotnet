@@ -20,9 +20,10 @@ namespace WebApplication1.Data
 
         public DbSet<HealthandDiseaseEntity> healthandEntity { get; set; }
         public DbSet<ManagementPraticesEntity>  managementPraticesEntities { get; set; }
-        public DbSet<PhenologicalStageEntity> phenlogicalStageEntities { get; set; }
+        public DbSet<PhenologicalStageEntity> phenologicalStageEntities { get; set; }
         public DbSet<YieldandProductivityEntity> yieldandProductivityEntities { get; set; }
- 
+        public DbSet<PhenologicalEntity> phenologicalEntities { get; set; }
+
 
 
 
