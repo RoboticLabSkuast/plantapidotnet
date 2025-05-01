@@ -20,9 +20,9 @@ namespace WebApplication1.Data
 
         public DbSet<HealthandDiseaseEntity> healthandEntity { get; set; }
         public DbSet<ManagementPraticesEntity>  managementPraticesEntities { get; set; }
-        public DbSet<PhenologicalStageEntity> phenologicalStageEntities { get; set; }
+        public DbSet<PhenologicalStageEntity> phenologicalStageEntity { get; set; }
         public DbSet<YieldandProductivityEntity> yieldandProductivityEntities { get; set; }
-        public DbSet<PhenologicalEntity> phenologicalEntities { get; set; }
+        public DbSet<PhenologicalEntities> phenologicalEntities { get; set; }
 
 
 
@@ -46,10 +46,12 @@ namespace WebApplication1.Data
                 .HasKey(od => od.healthandDiseaseEntity_Id);
 
 
-            modelBuilder.Entity<PhenologicalEntity>(entity =>
+            modelBuilder.Entity<PhenologicalEntities>(entity =>
             {
-                entity.HasKey(t=>t.PhenologicalEntity_Id);
-                entity.HasOne(t=>t.PhenlogicalStageEntity)
+                entity.HasKey(t=>t.phenologicalEntities_Id);
+
+
+                entity.HasOne(t=>t.phenlogicalStageEntity)
                 .WithMany().
                 HasForeignKey(e=>e.phenologicalStageEntity_Id);
                 
@@ -81,9 +83,9 @@ namespace WebApplication1.Data
                       .OnDelete(DeleteBehavior.Restrict);
 
                 // Phenological relationship
-                entity.HasOne(e => e.phenologicalEntity)
+                entity.HasOne(e => e.phenologicalEntities)
                       .WithMany()
-                      .HasForeignKey(e => e.phenologicalEntity_Id)
+                      .HasForeignKey(e => e.phenologicalEntities_Id)
                       .OnDelete(DeleteBehavior.Restrict);
 
                 // Management Practices relationship

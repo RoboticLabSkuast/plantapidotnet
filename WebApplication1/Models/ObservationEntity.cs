@@ -22,9 +22,9 @@ namespace WebApplication1.Models
 
 
       
-        public int phenologicalEntity_Id { get; set; }
+        public int phenologicalEntities_Id { get; set; }
      
-        public PhenologicalEntity? phenologicalEntity { get; set; }
+        public PhenologicalEntities? phenologicalEntities { get; set; }
 
       
         public int managementPraticesEntity_Id { get; set; }

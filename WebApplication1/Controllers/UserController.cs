@@ -52,7 +52,8 @@ public class UserController : ControllerBase
            return Unauthorized(new { Status = "Fail",User="" });
         }
         ExpertDto expert = new ExpertDto { 
-            username=user.username,
+            expert_id= user.expert_id,
+            username =user.username,
             role = user.role,
             name = user.name,
             email = user.email,

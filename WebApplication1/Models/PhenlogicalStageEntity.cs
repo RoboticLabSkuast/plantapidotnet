@@ -6,6 +6,6 @@ namespace WebApplication1.Models
     {
        
         public int phenologicalStageEntity_Id { get; set; }
-        public string stage { get; set; }
+        public string stageName { get; set; }
     }
 }

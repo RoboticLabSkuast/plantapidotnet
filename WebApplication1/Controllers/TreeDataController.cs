@@ -68,9 +68,10 @@ public class TreeDataController : ControllerBase
      public async Task<IActionResult> AddTreeDataAsync([FromBody] UploadClass treeApidata)
      {
         var crop = _context.treesTables
-       .Include(u => u.crop)
-       .Select(u => u.crop)
-       .FirstOrDefault(c => c.qrcodeTree == treeApidata.qrcodeTreeId);
+     .Include(u => u.crop)
+     .FirstOrDefault(u => u.crop.qrcodeTree == treeApidata.qrcodeTreeId)?
+     .crop;
+
 
         if (crop == null)
         {
@@ -85,28 +86,31 @@ public class TreeDataController : ControllerBase
              Directory.CreateDirectory(uploadsFolder);
 
          var imagePath = await SaveImageAsync(treeApidata.ImageData,treeApidata.qrcodeTreeId);
-        var phenologicalStage = _context.phenologicalStageEntities
-      .FirstOrDefault(s => s.stage == treeApidata.phenological.stage);
+
+        var phenologicalStage = _context.phenologicalEntities
+            .Include(s => s.phenlogicalStageEntity)
+      .FirstOrDefault(s => s.phenlogicalStageEntity.stageName == treeApidata.phenological.stageName)?.phenlogicalStageEntity;
 
         if (phenologicalStage == null)
         {
             phenologicalStage = new PhenologicalStageEntity
             {
-                stage = treeApidata.phenological.stage
+                stageName = treeApidata.phenological.stageName
             };
-            _context.phenologicalStageEntities.Add(phenologicalStage);
+            _context.phenologicalStageEntity.Add(phenologicalStage);
             await _context.SaveChangesAsync();
         }
 
-        var phenologicalEntity = new PhenologicalEntity
+        var phenologicalEntity = new PhenologicalEntities
         {
             phenologicalStageEntity_Id = phenologicalStage.phenologicalStageEntity_Id,
-            PhenlogicalStageEntity = phenologicalStage,
-            StageDate = treeApidata.phenological.StageDate,
+            phenlogicalStageEntity = phenologicalStage,
+            StageDate = treeApidata.phenological.StageDate.ToUniversalTime(),
             growthScale = treeApidata.phenological.growthScale,
             blossomDensity = treeApidata.phenological.blossomDensity
         };
         _context.phenologicalEntities.Add(phenologicalEntity);
+        
         await _context.SaveChangesAsync();
 
         var healthEntity = new HealthandDiseaseEntity
@@ -126,13 +130,13 @@ public class TreeDataController : ControllerBase
         var managementEntity = new ManagementPraticesEntity
         {
             fertilizer = treeApidata.managementPractices.fertilizer,
-            fertilizerDateTime = treeApidata.managementPractices.fertilizerDateTime,
+            fertilizerDateTime = treeApidata.managementPractices.fertilizerDateTime.ToUniversalTime(),
             fertilizerAmount = treeApidata.managementPractices.fertilizerAmount,
             micronutrients = treeApidata.managementPractices.micronutrients,
-            micronutrientsDateTime = treeApidata.managementPractices.micronutrientsDateTime,
+            micronutrientsDateTime = treeApidata.managementPractices.micronutrientsDateTime.ToUniversalTime(),
             micronutrientsAmount = treeApidata.managementPractices.micronutrientsAmount,
             weedControl = treeApidata.managementPractices.weedControl,
-            weedControlDateTime = treeApidata.managementPractices.weedControlDateTime,
+            weedControlDateTime = treeApidata.managementPractices.weedControlDateTime.ToUniversalTime(),
             weedControlAmount = treeApidata.managementPractices.weedControlAmount
         };
         _context.managementPraticesEntities.Add(managementEntity);
@@ -141,7 +145,7 @@ public class TreeDataController : ControllerBase
         var yieldEntity = new YieldandProductivityEntity
         {
             fruitSetPercent = treeApidata.yieldandProductivity.fruitSetPercent,
-            harvestDate = treeApidata.yieldandProductivity.harvestDate,
+            harvestDate = treeApidata.yieldandProductivity.harvestDate.ToUniversalTime(),
             yieldAmount = treeApidata.yieldandProductivity.yieldAmount,
             FruitQuality = treeApidata.yieldandProductivity.FruitQuality
         };
@@ -153,8 +157,8 @@ public class TreeDataController : ControllerBase
         {
             crop_id = crop.crop_id,
             crop = crop,
-            phenologicalEntity_Id = phenologicalEntity.PhenologicalEntity_Id,
-            phenologicalEntity = phenologicalEntity,
+            phenologicalEntities_Id = phenologicalEntity.phenologicalEntities_Id,
+            phenologicalEntities = phenologicalEntity,
             healthandDiseaseEntity_Id = healthEntity.healthandDiseaseEntity_Id,
             healthandDiseaseEntity = healthEntity,
             managementPraticesEntity_Id = managementEntity.managementPraticesEntity_Id,

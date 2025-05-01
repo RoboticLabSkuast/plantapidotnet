@@ -18,7 +18,7 @@ namespace datacapture.model
     }
     public class Phenological
     {
-        public string stage {  get; set; }=string.Empty;
+        public string stageName {  get; set; }=string.Empty;
         public DateTime StageDate { get; set; }
         public int growthScale { get; set; }
         public int blossomDensity { get; set; }
