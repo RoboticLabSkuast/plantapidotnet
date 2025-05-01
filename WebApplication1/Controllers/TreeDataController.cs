@@ -157,6 +157,7 @@ public class TreeDataController : ControllerBase
         {
             crop_id = crop.crop_id,
             crop = crop,
+            ImagePath= imagePath,
             phenologicalEntities_Id = phenologicalEntity.phenologicalEntities_Id,
             phenologicalEntities = phenologicalEntity,
             healthandDiseaseEntity_Id = healthEntity.healthandDiseaseEntity_Id,

@@ -31,8 +31,9 @@ public class UserController : ControllerBase
             name = user.name,
             email = user.email,
             phone = user.phone,
-            address = user.address,
-            specialization = user.specialization,
+
+            year = user.year,
+            department = user.department,
             password = user.password, // In a real application, hash the password before storing it
             bio = user.bio
         };
@@ -56,10 +57,11 @@ public class UserController : ControllerBase
             username =user.username,
             role = user.role,
             name = user.name,
+            password="",
             email = user.email,
             phone = user.phone,
-            address = user.address,
-            specialization = user.specialization,
+           year= user.year,
+            department=user.department,
             bio = user.bio
         };
         return Ok(new {  Status = "Success" ,User= expert });

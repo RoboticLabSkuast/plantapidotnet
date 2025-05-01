@@ -7,9 +7,10 @@ namespace WebApplication1.Models
     {
        
         public int observationEntity_Id { get; set; }
+        public string? ImagePath { get; set; }
 
 
-       
+
         public int crop_id { get; set; }
      
         public CropEntity? crop { get; set; }

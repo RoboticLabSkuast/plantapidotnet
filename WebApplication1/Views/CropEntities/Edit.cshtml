@@ -1,0 +1,49 @@
+﻿@model WebApplication1.Models.CropEntity
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>CropEntity</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="crop_id" />
+            <div class="form-group">
+                <label asp-for="qrcodeTree" class="control-label"></label>
+                <input asp-for="qrcodeTree" class="form-control" />
+                <span asp-validation-for="qrcodeTree" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="createdOn" class="control-label"></label>
+                <input asp-for="createdOn" class="form-control" />
+                <span asp-validation-for="createdOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="updatedOn" class="control-label"></label>
+                <input asp-for="updatedOn" class="form-control" />
+                <span asp-validation-for="updatedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
