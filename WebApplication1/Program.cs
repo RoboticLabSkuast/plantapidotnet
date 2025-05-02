@@ -59,3 +59,15 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+/*
+ * 
+ * 
+ 
+
+dotnet publish -c Release -o ./publish
+
+ 
+ dotnet WebApplication1.dll --urls "http://0.0.0.0:5054"
+ 
+ */
