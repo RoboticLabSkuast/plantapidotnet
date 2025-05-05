@@ -86,7 +86,7 @@ public class TreeDataController : ControllerBase
             Directory.CreateDirectory(uploadsFolder);
 
         var imagePath = await SaveImageAsync(treeApidata.ImageData, treeApidata.qrcodeTreeId);
-
+        ///--------------------pheno--------------
         var phenologicalStage = _context.phenologicalEntities
             .Include(s => s.phenlogicalStageEntity)
       .FirstOrDefault(s => s.phenlogicalStageEntity.stageName == treeApidata.phenological.stageName)?.phenlogicalStageEntity;
@@ -112,46 +112,67 @@ public class TreeDataController : ControllerBase
         };
         _context.phenologicalEntities.Add(phenologicalEntity);
 
-       
-
-
-
-        var diseasesEntity = _context.diseasesEntities
+       //-----------------health----------------------------
+        var diseaseName = _context.diseaseNameEntities
             .FirstOrDefault(s => s.name == treeApidata.healthandDisease.ObservedDisease);
-        if (diseasesEntity == null)
+        if (diseaseName == null)
         {
-            diseasesEntity = new DiseasesEntity
+            diseaseName = new DiseaseNameEntity
             {
-                name = treeApidata.healthandDisease.ObservedDisease,
+                name = treeApidata.healthandDisease.ObservedDisease
+            };
+            _context.diseaseNameEntities.Add(diseaseName);
+        }
+
+        
+         var   diseasesEntity = new DiseasesEntity
+            {
+                diseaseName=diseaseName,
                 level = treeApidata.healthandDisease.ObservedDiseaseLevel
             };
             _context.diseasesEntities.Add(diseasesEntity);
 
-        }
-        var insectsEntity = _context.insectsEntities
+
+        var insectName = _context.insectNameEntities
             .FirstOrDefault(s => s.name == treeApidata.healthandDisease.Insects);
-        if (insectsEntity == null)
-        {
-            insectsEntity = new InsectsEntity
+
+
+        if (insectName == null)
+            insectName = new InsectNameEntity
             {
-                name = treeApidata.healthandDisease.Insects,
+                name = treeApidata.healthandDisease.Insects
+            };
+        
+            var insectsEntity = new InsectsEntity
+            {
+                insectName=insectName,
                 level = treeApidata.healthandDisease.InsectsLevel
             };
             _context.insectsEntities.Add(insectsEntity);
 
-        }
-        var disorderEntity = _context.disorderEntities
-            .FirstOrDefault(s => s.name == treeApidata.healthandDisease.PhysiologicalDisorder);
-        if (disorderEntity == null)
+        
+
+        var disorderName=_context.disorderNameEntities
+            .FirstOrDefault(s=>s.name == treeApidata.healthandDisease.PhysiologicalDisorder);
+        if (disorderName == null)
         {
-            disorderEntity = new DisorderEntity
+            disorderName = new DisorderNameEntity
             {
-                name = treeApidata.healthandDisease.PhysiologicalDisorder,
+                name = treeApidata.healthandDisease.PhysiologicalDisorder
+            };
+        }
+
+
+       
+        
+           var  disorderEntity = new DisorderEntity
+            {
+               disorderName=disorderName,
                 level = treeApidata.healthandDisease.PhysiologicalDisorderLevel
             };
             _context.disorderEntities.Add(disorderEntity);
 
-        }
+        
      
 
 
@@ -172,50 +193,67 @@ public class TreeDataController : ControllerBase
         _context.healthandEntity.Add(healthandEntity);
       
 
-        var fertilizerEntity = _context.fertilizerEntities
+        var fertilizerName=_context.fertilizerNameEntities
+            .FirstOrDefault(s=>s.name == treeApidata.managementPractices.fertilizer);
 
-             .FirstOrDefault(s => s.name == treeApidata.managementPractices.fertilizer);
-        if (fertilizerEntity == null)
+        if (fertilizerName == null)
         {
-            fertilizerEntity = new FertilizerEntity
+            fertilizerName = new FertilizerNameEntity
             {
-                name = treeApidata.managementPractices.fertilizer,
+                name = treeApidata.managementPractices.fertilizer
+            };
+        }
+
+        
+          var  fertilizerEntity = new FertilizerEntity
+            {
+               fertilizerName=fertilizerName,
                 amountUsed = treeApidata.managementPractices.fertilizerAmount,
                 fertilizerDateTime = treeApidata.managementPractices.fertilizerDateTime.ToUniversalTime()
             };
             _context.fertilizerEntities.Add(fertilizerEntity);
 
-        }
 
-        var micronutrientEntity = _context.microNutrientsEntities
+        var micronutrientName = _context.microNutrientNameEntities
             .FirstOrDefault(s => s.name == treeApidata.managementPractices.micronutrients);
-        if (micronutrientEntity == null)
+
+        if (micronutrientName == null)
         {
-            micronutrientEntity = new MicroNutrientsEntity
+            micronutrientName = new MicroNutrientNameEntity
             {
-                name = treeApidata.managementPractices.micronutrients,
+                name = treeApidata.managementPractices.micronutrients
+            };
+        }
+          var  micronutrientEntity = new MicroNutrientsEntity
+            {
+                microNutrientName = micronutrientName,
                 amountUsed = treeApidata.managementPractices.micronutrientsAmount,
                 microNutrientDateTime = treeApidata.managementPractices.micronutrientsDateTime.ToUniversalTime()
             };
             _context.microNutrientsEntities.Add(micronutrientEntity);
           
-        }
+        
 
+    var weedControlName = _context.weedControlNameEntities
+        .FirstOrDefault(s => s.name == treeApidata.managementPractices.weedControl);
 
-
-        var weedControlEntity = _context.weedControlEntities
-            .FirstOrDefault(s => s.name == treeApidata.managementPractices.weedControl);
-        if (weedControlEntity == null)
+      if (weedControlName == null)
         {
-            weedControlEntity = new WeedControlEnity
+            weedControlName = new WeedControlNameEntity
             {
-                name = treeApidata.managementPractices.weedControl,
+                name = treeApidata.managementPractices.weedControl
+            };
+        }
+      var weedControlEntity=new WeedControlEnity { 
+                weedControlName= weedControlName,
                 amountUsed = treeApidata.managementPractices.weedControlAmount,
                 weedControlDateTime = treeApidata.managementPractices.weedControlDateTime.ToUniversalTime()
             };
             _context.weedControlEntities.Add(weedControlEntity);
          
-        }
+        
+
+
         var managementEntity = new ManagementPraticesEntity
         {
             Fertilizer = fertilizerEntity,

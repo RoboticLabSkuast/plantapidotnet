@@ -29,7 +29,12 @@ namespace WebApplication1.Data
         public DbSet<MicroNutrientsEntity> microNutrientsEntities { get; set; }
         public DbSet<WeedControlEnity> weedControlEntities { get; set; }    
         
-
+        public DbSet<DiseaseNameEntity> diseaseNameEntities { get; set; }
+        public DbSet<InsectNameEntity> insectNameEntities { get; set; }
+        public DbSet<DisorderNameEntity> disorderNameEntities { get; set; }
+        public DbSet<MicroNutrientNameEntity> microNutrientNameEntities { get; set; }
+        public DbSet<FertilizerNameEntity> fertilizerNameEntities { get; set; }
+        public DbSet<WeedControlNameEntity> weedControlNameEntities { get; set; }
 
 
 
@@ -39,9 +44,14 @@ namespace WebApplication1.Data
             
              modelBuilder.Entity<CropEntity>()
               .HasKey(od => od.crop_id);
-             modelBuilder.Entity<DiseasesEntity>()
-              .HasKey(od =>od.disease_id); 
-             modelBuilder.Entity<RootstocksEntity>()
+            modelBuilder.Entity<DiseasesEntity>(entity =>
+            {
+                entity.HasKey(t => t.disease_id);
+                entity.HasOne(t => t.diseaseName)
+                      .WithMany()
+                      .HasForeignKey(t => t.diseaseName_id);
+            });
+            modelBuilder.Entity<RootstocksEntity>()
              .HasKey(od =>od.rootstock_id );
               modelBuilder.Entity<VarietiesEntity>()
              .HasKey(od =>  od.variety_id );
@@ -49,16 +59,50 @@ namespace WebApplication1.Data
                 .HasKey(od =>  od.expert_id);
             modelBuilder.Entity<PhenologicalStageEntity>()
                 .HasKey(od =>od.phenologicalStageEntity_Id);
-            modelBuilder.Entity<DisorderEntity>()
-               .HasKey(od => od.disorder_id);
-            modelBuilder.Entity<FertilizerEntity>()
-           .HasKey(od => od.fertilizer_id);
-            modelBuilder.Entity<InsectsEntity>()
-                .HasKey(od => od.insect_id);
-            modelBuilder.Entity<MicroNutrientsEntity>()
-             .HasKey(od => od.micro_nutrient_id);
-            modelBuilder.Entity<WeedControlEnity>()
-           .HasKey(od => od.weed_control_id);
+
+            modelBuilder.Entity<DisorderEntity>(entity =>
+            {
+                entity.HasKey(t => t.disorder_id);
+                entity.HasOne(t => t.disorderName)
+                      .WithMany()
+                      .HasForeignKey(t => t.disorderName_id);
+            });
+
+
+            modelBuilder.Entity<FertilizerEntity>(entity =>
+            {
+                entity.HasKey(t => t.fertilizer_id);
+                entity.HasOne(t => t.fertilizerName)
+                      .WithMany()
+                      .HasForeignKey(t => t.fertilizerName_id);
+            });
+
+
+            modelBuilder.Entity<InsectsEntity>(entity =>
+            {
+                entity.HasKey(t => t.insect_id);
+                entity.HasOne(t => t.insectName)
+                      .WithMany()
+                      .HasForeignKey(t => t.insectName_id);
+            });
+
+
+            modelBuilder.Entity<MicroNutrientsEntity>(entity =>
+            {
+                entity.HasKey(t => t.micro_nutrient_id);
+                entity.HasOne(t => t.microNutrientName)
+                      .WithMany()
+                      .HasForeignKey(t => t.microNutrientName_id);
+            });
+
+            modelBuilder.Entity<WeedControlEnity>(entity =>
+            {
+                entity.HasKey(t => t.weed_control_id);
+                entity.HasOne(t => t.weedControlName)
+                      .WithMany()
+                      .HasForeignKey(t => t.weedControlName_id);
+            });
+
 
 
 
@@ -112,8 +156,20 @@ namespace WebApplication1.Data
                 .HasForeignKey(t => t.weed_control_id);
 
             });
-               
 
+
+            modelBuilder.Entity<DiseaseNameEntity>()
+                .HasKey(t => t.diseaseName_id);
+            modelBuilder.Entity<InsectNameEntity>()
+                .HasKey(t => t.insectName_id);
+            modelBuilder.Entity<DisorderNameEntity>()
+                .HasKey(t => t.disorderName_id);
+            modelBuilder.Entity<MicroNutrientNameEntity>()
+                .HasKey(t => t.microNutrientName_id);
+            modelBuilder.Entity<FertilizerNameEntity>()
+                .HasKey(t => t.fertilizerName_id);
+            modelBuilder.Entity<WeedControlNameEntity>()
+                .HasKey(t => t.weedControlName_id);
 
 
 

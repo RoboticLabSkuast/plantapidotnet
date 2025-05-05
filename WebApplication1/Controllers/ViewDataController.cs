@@ -73,12 +73,12 @@ namespace WebApplication1.Controllers
 
             if (!string.IsNullOrEmpty(disease))
             {
-                query = query.Where(x => x.Observation.healthandDiseaseEntity.Diseases.name.Contains(disease));
+                query = query.Where(x => x.Observation.healthandDiseaseEntity.Diseases.diseaseName.name.Contains(disease));
             }
 
             if (!string.IsNullOrEmpty(insect))
             {
-                query = query.Where(x => x.Observation.healthandDiseaseEntity.Insects.name.Contains(insect));
+                query = query.Where(x => x.Observation.healthandDiseaseEntity.Insects.insectName.name.Contains(insect));
             }
             
 
@@ -130,19 +130,19 @@ namespace WebApplication1.Controllers
                     healthandDisease = new HealthandDiseaseEntity { 
                         Diseases=new DiseasesEntity
                         {
-                            name = o.Observation.healthandDiseaseEntity.Diseases.name,
+                            diseaseName =new DiseaseNameEntity { name = o.Observation.healthandDiseaseEntity.Diseases.diseaseName.name },
                             level = o.Observation.healthandDiseaseEntity.Diseases.level
 
                         },
                         Insects= new InsectsEntity
                         {
-                            name = o.Observation.healthandDiseaseEntity.Insects.name,
+                            insectName=new InsectNameEntity { name = o.Observation.healthandDiseaseEntity.Insects.insectName.name },
                             level = o.Observation.healthandDiseaseEntity.Insects.level
                         },
                        
                         Disorder=new DisorderEntity
                         {
-                            name = o.Observation.healthandDiseaseEntity.Disorder.name,
+                            disorderName =new DisorderNameEntity { name = o.Observation.healthandDiseaseEntity.Disorder.disorderName.name },
                             level = o.Observation.healthandDiseaseEntity.Disorder.level
                         },
 
@@ -152,19 +152,20 @@ namespace WebApplication1.Controllers
                     },
                    managementPractices= new ManagementPraticesEntity
                     {
-                       Fertilizer=new FertilizerEntity { name = o.Observation.managementPraticesEntity.Fertilizer.name,
+                       Fertilizer=new FertilizerEntity {fertilizerName=new FertilizerNameEntity { name = o.Observation.managementPraticesEntity.Fertilizer.fertilizerName.name },
                            amountUsed = o.Observation.managementPraticesEntity.Fertilizer.amountUsed,
                        fertilizerDateTime = o.Observation.managementPraticesEntity.Fertilizer.fertilizerDateTime,
                        },
                        MicroNutrient=new MicroNutrientsEntity
                        {
-                           name = o.Observation.managementPraticesEntity.MicroNutrient.name,
+                          microNutrientName= new MicroNutrientNameEntity { name = o.Observation.managementPraticesEntity.MicroNutrient.microNutrientName.name },
                            amountUsed = o.Observation.managementPraticesEntity.MicroNutrient.amountUsed,
                            microNutrientDateTime = o.Observation.managementPraticesEntity.MicroNutrient.microNutrientDateTime,
                        },
                       WeedControl = new WeedControlEnity
                       {
-                          name = o.Observation.managementPraticesEntity.WeedControl.name,
+                         weedControlName = new WeedControlNameEntity{ name = o.Observation.managementPraticesEntity.WeedControl.weedControlName.name
+                      },
                           amountUsed = o.Observation.managementPraticesEntity.WeedControl.amountUsed,
                           weedControlDateTime = o.Observation.managementPraticesEntity.WeedControl.weedControlDateTime,
                       },

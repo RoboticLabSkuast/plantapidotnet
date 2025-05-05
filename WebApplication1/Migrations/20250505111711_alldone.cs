@@ -29,37 +29,35 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "diseasesEntities",
+                name: "diseaseNameEntities",
                 columns: table => new
                 {
-                    disease_id = table.Column<int>(type: "integer", nullable: false)
+                    diseaseName_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: true),
                     description = table.Column<string>(type: "text", nullable: true),
-                    level = table.Column<int>(type: "integer", nullable: false),
                     createdOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_diseasesEntities", x => x.disease_id);
+                    table.PrimaryKey("PK_diseaseNameEntities", x => x.diseaseName_id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "disorderEntities",
+                name: "disorderNameEntities",
                 columns: table => new
                 {
-                    disorder_id = table.Column<int>(type: "integer", nullable: false)
+                    disorderName_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: true),
                     description = table.Column<string>(type: "text", nullable: true),
-                    level = table.Column<int>(type: "integer", nullable: false),
                     createdOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_disorderEntities", x => x.disorder_id);
+                    table.PrimaryKey("PK_disorderNameEntities", x => x.disorderName_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,56 +84,51 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "fertilizerEntities",
+                name: "fertilizerNameEntities",
                 columns: table => new
                 {
-                    fertilizer_id = table.Column<int>(type: "integer", nullable: false)
+                    fertilizerName_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: true),
                     description = table.Column<string>(type: "text", nullable: true),
-                    amountUsed = table.Column<int>(type: "integer", nullable: false),
-                    fertilizerDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     createdOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_fertilizerEntities", x => x.fertilizer_id);
+                    table.PrimaryKey("PK_fertilizerNameEntities", x => x.fertilizerName_id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "insectsEntities",
+                name: "insectNameEntities",
                 columns: table => new
                 {
-                    insect_id = table.Column<int>(type: "integer", nullable: false)
+                    insectName_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: true),
                     description = table.Column<string>(type: "text", nullable: true),
-                    level = table.Column<int>(type: "integer", nullable: false),
                     createdOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_insectsEntities", x => x.insect_id);
+                    table.PrimaryKey("PK_insectNameEntities", x => x.insectName_id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "microNutrientsEntities",
+                name: "microNutrientNameEntities",
                 columns: table => new
                 {
-                    micro_nutrient_id = table.Column<int>(type: "integer", nullable: false)
+                    microNutrientName_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: true),
                     description = table.Column<string>(type: "text", nullable: true),
-                    amountUsed = table.Column<int>(type: "integer", nullable: false),
-                    microNutrientDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     createdOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_microNutrientsEntities", x => x.micro_nutrient_id);
+                    table.PrimaryKey("PK_microNutrientNameEntities", x => x.microNutrientName_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -184,21 +177,19 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "weedControlEntities",
+                name: "weedControlNameEntities",
                 columns: table => new
                 {
-                    weed_control_id = table.Column<int>(type: "integer", nullable: false)
+                    weedControlName_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: true),
                     description = table.Column<string>(type: "text", nullable: true),
-                    amountUsed = table.Column<int>(type: "integer", nullable: false),
-                    weedControlDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     createdOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_weedControlEntities", x => x.weed_control_id);
+                    table.PrimaryKey("PK_weedControlNameEntities", x => x.weedControlName_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -220,39 +211,114 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "healthandEntity",
+                name: "diseasesEntities",
                 columns: table => new
                 {
-                    healthandDiseaseEntity_Id = table.Column<int>(type: "integer", nullable: false)
+                    disease_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    disease_id = table.Column<int>(type: "integer", nullable: false),
-                    insect_id = table.Column<int>(type: "integer", nullable: false),
-                    disorder_id = table.Column<int>(type: "integer", nullable: false),
-                    NurientDefiency = table.Column<string>(type: "text", nullable: false),
-                    DamageReport = table.Column<string>(type: "text", nullable: false),
+                    diseaseName_id = table.Column<int>(type: "integer", nullable: false),
+                    level = table.Column<int>(type: "integer", nullable: false),
                     createdOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_healthandEntity", x => x.healthandDiseaseEntity_Id);
+                    table.PrimaryKey("PK_diseasesEntities", x => x.disease_id);
                     table.ForeignKey(
-                        name: "FK_healthandEntity_diseasesEntities_disease_id",
-                        column: x => x.disease_id,
-                        principalTable: "diseasesEntities",
-                        principalColumn: "disease_id",
+                        name: "FK_diseasesEntities_diseaseNameEntities_diseaseName_id",
+                        column: x => x.diseaseName_id,
+                        principalTable: "diseaseNameEntities",
+                        principalColumn: "diseaseName_id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "disorderEntities",
+                columns: table => new
+                {
+                    disorder_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    disorderName_id = table.Column<int>(type: "integer", nullable: false),
+                    level = table.Column<int>(type: "integer", nullable: false),
+                    createdOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    updatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_disorderEntities", x => x.disorder_id);
                     table.ForeignKey(
-                        name: "FK_healthandEntity_disorderEntities_disorder_id",
-                        column: x => x.disorder_id,
-                        principalTable: "disorderEntities",
-                        principalColumn: "disorder_id",
+                        name: "FK_disorderEntities_disorderNameEntities_disorderName_id",
+                        column: x => x.disorderName_id,
+                        principalTable: "disorderNameEntities",
+                        principalColumn: "disorderName_id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "fertilizerEntities",
+                columns: table => new
+                {
+                    fertilizer_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    fertilizerName_id = table.Column<int>(type: "integer", nullable: false),
+                    amountUsed = table.Column<int>(type: "integer", nullable: false),
+                    fertilizerDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    createdOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    updatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_fertilizerEntities", x => x.fertilizer_id);
                     table.ForeignKey(
-                        name: "FK_healthandEntity_insectsEntities_insect_id",
-                        column: x => x.insect_id,
-                        principalTable: "insectsEntities",
-                        principalColumn: "insect_id",
+                        name: "FK_fertilizerEntities_fertilizerNameEntities_fertilizerName_id",
+                        column: x => x.fertilizerName_id,
+                        principalTable: "fertilizerNameEntities",
+                        principalColumn: "fertilizerName_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "insectsEntities",
+                columns: table => new
+                {
+                    insect_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    insectName_id = table.Column<int>(type: "integer", nullable: false),
+                    level = table.Column<int>(type: "integer", nullable: false),
+                    createdOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    updatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_insectsEntities", x => x.insect_id);
+                    table.ForeignKey(
+                        name: "FK_insectsEntities_insectNameEntities_insectName_id",
+                        column: x => x.insectName_id,
+                        principalTable: "insectNameEntities",
+                        principalColumn: "insectName_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "microNutrientsEntities",
+                columns: table => new
+                {
+                    micro_nutrient_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    microNutrientName_id = table.Column<int>(type: "integer", nullable: false),
+                    amountUsed = table.Column<int>(type: "integer", nullable: false),
+                    microNutrientDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    createdOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    updatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_microNutrientsEntities", x => x.micro_nutrient_id);
+                    table.ForeignKey(
+                        name: "FK_microNutrientsEntities_microNutrientNameEntities_microNutri~",
+                        column: x => x.microNutrientName_id,
+                        principalTable: "microNutrientNameEntities",
+                        principalColumn: "microNutrientName_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -330,6 +396,66 @@ namespace WebApplication1.Migrations
                         principalTable: "varietiesEntity",
                         principalColumn: "variety_id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "weedControlEntities",
+                columns: table => new
+                {
+                    weed_control_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    weedControlName_id = table.Column<int>(type: "integer", nullable: false),
+                    amountUsed = table.Column<int>(type: "integer", nullable: false),
+                    weedControlDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    createdOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    updatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_weedControlEntities", x => x.weed_control_id);
+                    table.ForeignKey(
+                        name: "FK_weedControlEntities_weedControlNameEntities_weedControlName~",
+                        column: x => x.weedControlName_id,
+                        principalTable: "weedControlNameEntities",
+                        principalColumn: "weedControlName_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "healthandEntity",
+                columns: table => new
+                {
+                    healthandDiseaseEntity_Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    disease_id = table.Column<int>(type: "integer", nullable: false),
+                    insect_id = table.Column<int>(type: "integer", nullable: false),
+                    disorder_id = table.Column<int>(type: "integer", nullable: false),
+                    NurientDefiency = table.Column<string>(type: "text", nullable: false),
+                    DamageReport = table.Column<string>(type: "text", nullable: false),
+                    createdOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    updatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_healthandEntity", x => x.healthandDiseaseEntity_Id);
+                    table.ForeignKey(
+                        name: "FK_healthandEntity_diseasesEntities_disease_id",
+                        column: x => x.disease_id,
+                        principalTable: "diseasesEntities",
+                        principalColumn: "disease_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_healthandEntity_disorderEntities_disorder_id",
+                        column: x => x.disorder_id,
+                        principalTable: "disorderEntities",
+                        principalColumn: "disorder_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_healthandEntity_insectsEntities_insect_id",
+                        column: x => x.insect_id,
+                        principalTable: "insectsEntities",
+                        principalColumn: "insect_id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -418,6 +544,21 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_diseasesEntities_diseaseName_id",
+                table: "diseasesEntities",
+                column: "diseaseName_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_disorderEntities_disorderName_id",
+                table: "disorderEntities",
+                column: "disorderName_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_fertilizerEntities_fertilizerName_id",
+                table: "fertilizerEntities",
+                column: "fertilizerName_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_healthandEntity_disease_id",
                 table: "healthandEntity",
                 column: "disease_id");
@@ -433,6 +574,11 @@ namespace WebApplication1.Migrations
                 column: "insect_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_insectsEntities_insectName_id",
+                table: "insectsEntities",
+                column: "insectName_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_managementPraticesEntities_fertilizer_id",
                 table: "managementPraticesEntities",
                 column: "fertilizer_id");
@@ -446,6 +592,11 @@ namespace WebApplication1.Migrations
                 name: "IX_managementPraticesEntities_weed_control_id",
                 table: "managementPraticesEntities",
                 column: "weed_control_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_microNutrientsEntities_microNutrientName_id",
+                table: "microNutrientsEntities",
+                column: "microNutrientName_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_observationEntity_crop_id",
@@ -496,6 +647,11 @@ namespace WebApplication1.Migrations
                 name: "IX_treesTables_variety_id",
                 table: "treesTables",
                 column: "variety_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_weedControlEntities_weedControlName_id",
+                table: "weedControlEntities",
+                column: "weedControlName_id");
         }
 
         /// <inheritdoc />
@@ -551,6 +707,24 @@ namespace WebApplication1.Migrations
 
             migrationBuilder.DropTable(
                 name: "phenologicalStageEntity");
+
+            migrationBuilder.DropTable(
+                name: "diseaseNameEntities");
+
+            migrationBuilder.DropTable(
+                name: "disorderNameEntities");
+
+            migrationBuilder.DropTable(
+                name: "insectNameEntities");
+
+            migrationBuilder.DropTable(
+                name: "fertilizerNameEntities");
+
+            migrationBuilder.DropTable(
+                name: "microNutrientNameEntities");
+
+            migrationBuilder.DropTable(
+                name: "weedControlNameEntities");
         }
     }
 }
