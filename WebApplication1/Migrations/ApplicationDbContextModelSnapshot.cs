@@ -85,6 +85,9 @@ namespace WebApplication1.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("disorder_id"));
 
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("description")
                         .HasColumnType("text");
 
@@ -93,6 +96,9 @@ namespace WebApplication1.Migrations
 
                     b.Property<string>("name")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("disorder_id");
 
@@ -165,6 +171,9 @@ namespace WebApplication1.Migrations
                     b.Property<int>("amountUsed")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("description")
                         .HasColumnType("text");
 
@@ -173,6 +182,9 @@ namespace WebApplication1.Migrations
 
                     b.Property<string>("name")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("fertilizer_id");
 
@@ -195,6 +207,9 @@ namespace WebApplication1.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("disease_id")
                         .HasColumnType("integer");
 
@@ -203,6 +218,9 @@ namespace WebApplication1.Migrations
 
                     b.Property<int>("insect_id")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("healthandDiseaseEntity_Id");
 
@@ -223,6 +241,9 @@ namespace WebApplication1.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("insect_id"));
 
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("description")
                         .HasColumnType("text");
 
@@ -231,6 +252,9 @@ namespace WebApplication1.Migrations
 
                     b.Property<string>("name")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("insect_id");
 
@@ -245,11 +269,17 @@ namespace WebApplication1.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("managementPraticesEntity_Id"));
 
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("fertilizer_id")
                         .HasColumnType("integer");
 
                     b.Property<int>("micro_nutrient_id")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("weed_control_id")
                         .HasColumnType("integer");
@@ -276,6 +306,9 @@ namespace WebApplication1.Migrations
                     b.Property<int>("amountUsed")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("description")
                         .HasColumnType("text");
 
@@ -284,6 +317,9 @@ namespace WebApplication1.Migrations
 
                     b.Property<string>("name")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("micro_nutrient_id");
 
@@ -301,6 +337,9 @@ namespace WebApplication1.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("crop_id")
                         .HasColumnType("integer");
 
@@ -312,6 +351,9 @@ namespace WebApplication1.Migrations
 
                     b.Property<int>("phenologicalEntities_Id")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("yieldandProductivityEntity_Id")
                         .HasColumnType("integer");
@@ -372,9 +414,15 @@ namespace WebApplication1.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("phenologicalStageEntity_Id"));
 
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("stageName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("phenologicalStageEntity_Id");
 
@@ -515,11 +563,17 @@ namespace WebApplication1.Migrations
                     b.Property<int>("amountUsed")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("description")
                         .HasColumnType("text");
 
                     b.Property<string>("name")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("weedControlDateTime")
                         .HasColumnType("timestamp with time zone");

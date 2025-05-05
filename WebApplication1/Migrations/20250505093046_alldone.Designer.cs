@@ -12,8 +12,8 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250501053947_InitialCre")]
-    partial class InitialCre
+    [Migration("20250505093046_alldone")]
+    partial class alldone
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,11 +64,12 @@ namespace WebApplication1.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("description")
-                        .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("level")
+                        .HasColumnType("integer");
+
                     b.Property<string>("name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("updatedOn")
@@ -79,6 +80,34 @@ namespace WebApplication1.Migrations
                     b.ToTable("diseasesEntities");
                 });
 
+            modelBuilder.Entity("WebApplication1.Models.DisorderEntity", b =>
+                {
+                    b.Property<int>("disorder_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("disorder_id"));
+
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<int>("level")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("name")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("disorder_id");
+
+                    b.ToTable("disorderEntities");
+                });
+
             modelBuilder.Entity("WebApplication1.Models.ExpertEntity", b =>
                 {
                     b.Property<int>("expert_id")
@@ -87,16 +116,16 @@ namespace WebApplication1.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("expert_id"));
 
-                    b.Property<string>("address")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("bio")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("createdOn")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("department")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("email")
                         .IsRequired()
@@ -118,10 +147,6 @@ namespace WebApplication1.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("specialization")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("updatedOn")
                         .HasColumnType("timestamp with time zone");
 
@@ -129,9 +154,44 @@ namespace WebApplication1.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("year")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("expert_id");
 
                     b.ToTable("expertEntity");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.FertilizerEntity", b =>
+                {
+                    b.Property<int>("fertilizer_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("fertilizer_id"));
+
+                    b.Property<int>("amountUsed")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("fertilizerDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("name")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("fertilizer_id");
+
+                    b.ToTable("fertilizerEntities");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.HealthandDiseaseEntity", b =>
@@ -146,34 +206,62 @@ namespace WebApplication1.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Insects")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("InsectsLevel")
-                        .HasColumnType("integer");
-
                     b.Property<string>("NurientDefiency")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ObservedDisease")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("ObservedDiseaseLevel")
+                    b.Property<int>("disease_id")
                         .HasColumnType("integer");
 
-                    b.Property<string>("PhysiologicalDisorder")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PhysiologicalDisorderLevel")
+                    b.Property<int>("disorder_id")
                         .HasColumnType("integer");
+
+                    b.Property<int>("insect_id")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("healthandDiseaseEntity_Id");
 
+                    b.HasIndex("disease_id");
+
+                    b.HasIndex("disorder_id");
+
+                    b.HasIndex("insect_id");
+
                     b.ToTable("healthandEntity");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.InsectsEntity", b =>
+                {
+                    b.Property<int>("insect_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("insect_id"));
+
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<int>("level")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("name")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("insect_id");
+
+                    b.ToTable("insectsEntities");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.ManagementPraticesEntity", b =>
@@ -184,39 +272,61 @@ namespace WebApplication1.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("managementPraticesEntity_Id"));
 
-                    b.Property<string>("fertilizer")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("fertilizerAmount")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("fertilizerDateTime")
+                    b.Property<DateTime>("createdOn")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("micronutrients")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("micronutrientsAmount")
+                    b.Property<int>("fertilizer_id")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("micronutrientsDateTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("weedControl")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("weedControlAmount")
+                    b.Property<int>("micro_nutrient_id")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("weedControlDateTime")
+                    b.Property<DateTime>("updatedOn")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("weed_control_id")
+                        .HasColumnType("integer");
 
                     b.HasKey("managementPraticesEntity_Id");
 
+                    b.HasIndex("fertilizer_id");
+
+                    b.HasIndex("micro_nutrient_id");
+
+                    b.HasIndex("weed_control_id");
+
                     b.ToTable("managementPraticesEntities");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.MicroNutrientsEntity", b =>
+                {
+                    b.Property<int>("micro_nutrient_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("micro_nutrient_id"));
+
+                    b.Property<int>("amountUsed")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("microNutrientDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("name")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("micro_nutrient_id");
+
+                    b.ToTable("microNutrientsEntities");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.ObservationEntity", b =>
@@ -226,6 +336,12 @@ namespace WebApplication1.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("observationEntity_Id"));
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("crop_id")
                         .HasColumnType("integer");
@@ -238,6 +354,9 @@ namespace WebApplication1.Migrations
 
                     b.Property<int>("phenologicalEntities_Id")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("yieldandProductivityEntity_Id")
                         .HasColumnType("integer");
@@ -298,9 +417,15 @@ namespace WebApplication1.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("phenologicalStageEntity_Id"));
 
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("stageName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("phenologicalStageEntity_Id");
 
@@ -430,6 +555,37 @@ namespace WebApplication1.Migrations
                     b.ToTable("varietiesEntity");
                 });
 
+            modelBuilder.Entity("WebApplication1.Models.WeedControlEnity", b =>
+                {
+                    b.Property<int>("weed_control_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("weed_control_id"));
+
+                    b.Property<int>("amountUsed")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("name")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("updatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("weedControlDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("weed_control_id");
+
+                    b.ToTable("weedControlEntities");
+                });
+
             modelBuilder.Entity("WebApplication1.Models.YieldandProductivityEntity", b =>
                 {
                     b.Property<int>("yieldandProductivityEntity_Id")
@@ -441,10 +597,16 @@ namespace WebApplication1.Migrations
                     b.Property<int>("FruitQuality")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("fruitSetPercent")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("harvestDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("updatedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("yieldAmount")
@@ -453,6 +615,60 @@ namespace WebApplication1.Migrations
                     b.HasKey("yieldandProductivityEntity_Id");
 
                     b.ToTable("yieldandProductivityEntities");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.HealthandDiseaseEntity", b =>
+                {
+                    b.HasOne("WebApplication1.Models.DiseasesEntity", "Diseases")
+                        .WithMany()
+                        .HasForeignKey("disease_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplication1.Models.DisorderEntity", "Disorder")
+                        .WithMany()
+                        .HasForeignKey("disorder_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplication1.Models.InsectsEntity", "Insects")
+                        .WithMany()
+                        .HasForeignKey("insect_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Diseases");
+
+                    b.Navigation("Disorder");
+
+                    b.Navigation("Insects");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.ManagementPraticesEntity", b =>
+                {
+                    b.HasOne("WebApplication1.Models.FertilizerEntity", "Fertilizer")
+                        .WithMany()
+                        .HasForeignKey("fertilizer_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplication1.Models.MicroNutrientsEntity", "MicroNutrient")
+                        .WithMany()
+                        .HasForeignKey("micro_nutrient_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplication1.Models.WeedControlEnity", "WeedControl")
+                        .WithMany()
+                        .HasForeignKey("weed_control_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Fertilizer");
+
+                    b.Navigation("MicroNutrient");
+
+                    b.Navigation("WeedControl");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.ObservationEntity", b =>
