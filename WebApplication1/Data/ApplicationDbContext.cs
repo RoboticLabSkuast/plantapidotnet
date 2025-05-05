@@ -23,6 +23,13 @@ namespace WebApplication1.Data
         public DbSet<PhenologicalStageEntity> phenologicalStageEntity { get; set; }
         public DbSet<YieldandProductivityEntity> yieldandProductivityEntities { get; set; }
         public DbSet<PhenologicalEntities> phenologicalEntities { get; set; }
+        public DbSet<DisorderEntity> disorderEntities { get; set; }
+        public DbSet<FertilizerEntity> fertilizerEntities { get; set; }
+        public DbSet<InsectsEntity> insectsEntities { get; set; }
+        public DbSet<MicroNutrientsEntity> microNutrientsEntities { get; set; }
+        public DbSet<WeedControlEnity> weedControlEntities { get; set; }    
+        
+
 
 
 
@@ -42,8 +49,36 @@ namespace WebApplication1.Data
                 .HasKey(od =>  od.expert_id);
             modelBuilder.Entity<PhenologicalStageEntity>()
                 .HasKey(od =>od.phenologicalStageEntity_Id);
-            modelBuilder.Entity<HealthandDiseaseEntity>()
-                .HasKey(od => od.healthandDiseaseEntity_Id);
+            modelBuilder.Entity<DisorderEntity>()
+               .HasKey(od => od.disorder_id);
+            modelBuilder.Entity<FertilizerEntity>()
+           .HasKey(od => od.fertilizer_id);
+            modelBuilder.Entity<InsectsEntity>()
+                .HasKey(od => od.insect_id);
+            modelBuilder.Entity<MicroNutrientsEntity>()
+             .HasKey(od => od.micro_nutrient_id);
+            modelBuilder.Entity<WeedControlEnity>()
+           .HasKey(od => od.weed_control_id);
+
+
+
+
+
+            modelBuilder.Entity<HealthandDiseaseEntity>(entity =>
+            {
+            entity.HasKey(t => t.healthandDiseaseEntity_Id);
+                entity.HasOne(t => t.Diseases)
+                  .WithMany()
+                  .HasForeignKey(t => t.disease_id);
+                entity.HasOne(t => t.Insects)
+                .WithMany()
+                .HasForeignKey(t => t.insect_id);
+
+                entity.HasOne(t => t.Disorder)
+               .WithMany()
+                .HasForeignKey(t => t.disorder_id);
+            });
+            
 
 
             modelBuilder.Entity<PhenologicalEntities>(entity =>
@@ -57,13 +92,44 @@ namespace WebApplication1.Data
                 
 
             });
+
+
+
+            modelBuilder.Entity<ManagementPraticesEntity>(entity=>
+            {
+                entity.HasKey(t => t.managementPraticesEntity_Id);
+
+                entity.HasOne(t => t.Fertilizer)
+                      .WithMany()
+                      .HasForeignKey(t => t.fertilizer_id);
+
+                entity.HasOne(t => t.MicroNutrient)
+                      .WithMany()
+                      .HasForeignKey(t => t.micro_nutrient_id);
+
+                entity.HasOne(t => t.WeedControl)
+                .WithMany()
+                .HasForeignKey(t => t.weed_control_id);
+
+            });
                
 
 
+
+
+
+
+
+
             modelBuilder.Entity<YieldandProductivityEntity>()
-                .HasKey(od =>od.yieldandProductivityEntity_Id);
-            modelBuilder.Entity<ManagementPraticesEntity>()
-                .HasKey(od =>od.managementPraticesEntity_Id);
+
+                 .HasKey(t => t.yieldandProductivityEntity_Id);
+
+
+
+
+
+
             modelBuilder.Entity<ObservationEntity>(entity =>
             {
               

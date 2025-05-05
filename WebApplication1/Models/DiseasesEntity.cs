@@ -6,8 +6,9 @@ namespace WebApplication1.Models
     {
       
         public int disease_id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
+        public string? name { get; set; }
+        public string? description { get; set; }
+        public int level { get; set; } // Severity level of the disease
 
 
     }

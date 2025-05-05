@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApplication1.Data;
@@ -11,9 +12,11 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250505071803_alldonesd")]
+    partial class alldonesd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,7 +99,7 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("disorder_id");
 
-                    b.ToTable("disorderEntities");
+                    b.ToTable("DisorderEntity");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.ExpertEntity", b =>
@@ -176,7 +179,7 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("fertilizer_id");
 
-                    b.ToTable("fertilizerEntities");
+                    b.ToTable("FertilizerEntity");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.HealthandDiseaseEntity", b =>
@@ -191,26 +194,35 @@ namespace WebApplication1.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("Diseasesdisease_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("Insectsinsect_id")
+                        .HasColumnType("integer");
+
                     b.Property<string>("NurientDefiency")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("disease_id")
+                    b.Property<int?>("PhysiologicalDisorderdisorder_id")
                         .HasColumnType("integer");
 
-                    b.Property<int>("disorder_id")
+                    b.Property<int>("disease_id")
                         .HasColumnType("integer");
 
                     b.Property<int>("insect_id")
                         .HasColumnType("integer");
 
+                    b.Property<int>("physiological_disorder_id")
+                        .HasColumnType("integer");
+
                     b.HasKey("healthandDiseaseEntity_Id");
 
-                    b.HasIndex("disease_id");
+                    b.HasIndex("Diseasesdisease_id");
 
-                    b.HasIndex("disorder_id");
+                    b.HasIndex("Insectsinsect_id");
 
-                    b.HasIndex("insect_id");
+                    b.HasIndex("PhysiologicalDisorderdisorder_id");
 
                     b.ToTable("healthandEntity");
                 });
@@ -234,7 +246,7 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("insect_id");
 
-                    b.ToTable("insectsEntities");
+                    b.ToTable("InsectsEntity");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.ManagementPraticesEntity", b =>
@@ -245,7 +257,16 @@ namespace WebApplication1.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("managementPraticesEntity_Id"));
 
+                    b.Property<int?>("MicroNutrientmicro_nutrient_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("WeedControlweed_control_id")
+                        .HasColumnType("integer");
+
                     b.Property<int>("fertilizer_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("fertilizer_id1")
                         .HasColumnType("integer");
 
                     b.Property<int>("micro_nutrient_id")
@@ -256,11 +277,11 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("managementPraticesEntity_Id");
 
-                    b.HasIndex("fertilizer_id");
+                    b.HasIndex("MicroNutrientmicro_nutrient_id");
 
-                    b.HasIndex("micro_nutrient_id");
+                    b.HasIndex("WeedControlweed_control_id");
 
-                    b.HasIndex("weed_control_id");
+                    b.HasIndex("fertilizer_id1");
 
                     b.ToTable("managementPraticesEntities");
                 });
@@ -287,7 +308,7 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("micro_nutrient_id");
 
-                    b.ToTable("microNutrientsEntities");
+                    b.ToTable("MicroNutrientsEntity");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.ObservationEntity", b =>
@@ -526,7 +547,7 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("weed_control_id");
 
-                    b.ToTable("weedControlEntities");
+                    b.ToTable("WeedControlEnity");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.YieldandProductivityEntity", b =>
@@ -540,16 +561,10 @@ namespace WebApplication1.Migrations
                     b.Property<int>("FruitQuality")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("createdOn")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<int>("fruitSetPercent")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("harvestDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("updatedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("yieldAmount")
@@ -564,48 +579,36 @@ namespace WebApplication1.Migrations
                 {
                     b.HasOne("WebApplication1.Models.DiseasesEntity", "Diseases")
                         .WithMany()
-                        .HasForeignKey("disease_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication1.Models.DisorderEntity", "Disorder")
-                        .WithMany()
-                        .HasForeignKey("disorder_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Diseasesdisease_id");
 
                     b.HasOne("WebApplication1.Models.InsectsEntity", "Insects")
                         .WithMany()
-                        .HasForeignKey("insect_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Insectsinsect_id");
+
+                    b.HasOne("WebApplication1.Models.DisorderEntity", "PhysiologicalDisorder")
+                        .WithMany()
+                        .HasForeignKey("PhysiologicalDisorderdisorder_id");
 
                     b.Navigation("Diseases");
 
-                    b.Navigation("Disorder");
-
                     b.Navigation("Insects");
+
+                    b.Navigation("PhysiologicalDisorder");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.ManagementPraticesEntity", b =>
                 {
-                    b.HasOne("WebApplication1.Models.FertilizerEntity", "Fertilizer")
-                        .WithMany()
-                        .HasForeignKey("fertilizer_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebApplication1.Models.MicroNutrientsEntity", "MicroNutrient")
                         .WithMany()
-                        .HasForeignKey("micro_nutrient_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MicroNutrientmicro_nutrient_id");
 
                     b.HasOne("WebApplication1.Models.WeedControlEnity", "WeedControl")
                         .WithMany()
-                        .HasForeignKey("weed_control_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WeedControlweed_control_id");
+
+                    b.HasOne("WebApplication1.Models.FertilizerEntity", "Fertilizer")
+                        .WithMany()
+                        .HasForeignKey("fertilizer_id1");
 
                     b.Navigation("Fertilizer");
 

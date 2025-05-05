@@ -11,10 +11,10 @@ namespace WebApplication1.DtoModels
        public VarietiesEntity variety { get; set; }
        public RootstocksEntity rootstock { get; set; }
 
-        public Phenological phenological { get; set; }
-        public HealthandDisease healthandDisease { get; set; }
-        public ManagementPractices managementPractices { get; set; }
-        public YieldandProductivity yieldandProductivity { get; set; }
+        public PhenologicalEntities? phenological { get; set; }
+        public HealthandDiseaseEntity? healthandDisease { get; set; }
+        public ManagementPraticesEntity? managementPractices { get; set; }
+        public YieldandProductivityEntity? yieldandProductivity { get; set; }
     }
 
 }

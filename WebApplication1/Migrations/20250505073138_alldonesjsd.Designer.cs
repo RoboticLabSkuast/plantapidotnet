@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApplication1.Data;
@@ -11,9 +12,11 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250505073138_alldonesjsd")]
+    partial class alldonesjsd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,7 +99,7 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("disorder_id");
 
-                    b.ToTable("disorderEntities");
+                    b.ToTable("DisorderEntity");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.ExpertEntity", b =>
@@ -176,7 +179,7 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("fertilizer_id");
 
-                    b.ToTable("fertilizerEntities");
+                    b.ToTable("FertilizerEntity");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.HealthandDiseaseEntity", b =>
@@ -234,7 +237,7 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("insect_id");
 
-                    b.ToTable("insectsEntities");
+                    b.ToTable("InsectsEntity");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.ManagementPraticesEntity", b =>
@@ -287,7 +290,7 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("micro_nutrient_id");
 
-                    b.ToTable("microNutrientsEntities");
+                    b.ToTable("MicroNutrientsEntity");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.ObservationEntity", b =>
@@ -526,7 +529,7 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("weed_control_id");
 
-                    b.ToTable("weedControlEntities");
+                    b.ToTable("WeedControlEnity");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.YieldandProductivityEntity", b =>
@@ -540,16 +543,10 @@ namespace WebApplication1.Migrations
                     b.Property<int>("FruitQuality")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("createdOn")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<int>("fruitSetPercent")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("harvestDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("updatedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("yieldAmount")

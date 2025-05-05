@@ -2,19 +2,19 @@
 
 namespace WebApplication1.Models
 {
-    public class ManagementPraticesEntity
+    public class ManagementPraticesEntity : BaseEntity
     {
 
         public int managementPraticesEntity_Id { get; set; }
-        public string fertilizer { get; set; } = string.Empty;
-        public DateTime fertilizerDateTime { get; set; }
-        public int fertilizerAmount { get; set; }
-        public string micronutrients { get; set; } = string.Empty;
-        public DateTime micronutrientsDateTime { get; set; }
-        public int micronutrientsAmount { get; set; }
-        public string weedControl { get; set; } = string.Empty;
-        public DateTime weedControlDateTime { get; set; }
-        public int weedControlAmount { get; set; }
+        public int fertilizer_id { get; set; } // Unique identifier for the fertilizer
+        public FertilizerEntity? Fertilizer { get; set; } // Navigation property to the FertilizerEntity
+
+
+        public int micro_nutrient_id { get; set; } // Unique identifier for the micro nutrient
+        public MicroNutrientsEntity? MicroNutrient { get; set; } // Navigation property to the MicroNutrientsEntity
+        public int weed_control_id { get; set; } // Unique identifier for the weed control
+        public WeedControlEnity? WeedControl { get; set; } // Navigation property to the WeedControlEnity
+
 
 
 

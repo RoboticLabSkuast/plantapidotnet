@@ -2,7 +2,7 @@
 
 namespace WebApplication1.Models
 {
-    public class YieldandProductivityEntity
+    public class YieldandProductivityEntity : BaseEntity
     {
        
         public int yieldandProductivityEntity_Id { get; set; }

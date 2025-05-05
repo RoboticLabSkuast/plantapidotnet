@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
             [FromQuery] int pageSize = 10,
             [FromQuery] string cropName = null,
             [FromQuery] string variety = null,
-             [FromQuery] string rootstock = null,
+            [FromQuery] string rootstock = null,
             [FromQuery] string phenology = null,
             [FromQuery] string disease = null,
             [FromQuery] string insect = null
@@ -40,9 +40,14 @@ namespace WebApplication1.Controllers
             var query = _context.observationEntity
                 .Include(o => o.crop)
                 .Include(o => o.phenologicalEntities).ThenInclude(p => p.phenlogicalStageEntity)
-                .Include(o => o.healthandDiseaseEntity)
-                .Include(o => o.managementPraticesEntity)
+                .Include(o => o.healthandDiseaseEntity).ThenInclude(p => p.Diseases)
+                .Include(o => o.healthandDiseaseEntity).ThenInclude(p => p.Insects)
+                .Include(o => o.healthandDiseaseEntity).ThenInclude(p => p.Disorder)
+                .Include(o => o.managementPraticesEntity).ThenInclude(p => p.MicroNutrient)
+                .Include(o => o.managementPraticesEntity).ThenInclude(p => p.WeedControl)
+                .Include(o => o.managementPraticesEntity).ThenInclude(p => p.Fertilizer)
                 .Include(o => o.yieldandProductivityEntity)
+                
                .Join(_context.treesTables,
                 o => o.crop_id,
                 t => t.crop_id,
@@ -60,19 +65,26 @@ namespace WebApplication1.Controllers
                 query = query.Where(x => x.Tree.rootstock.name.Contains(rootstock));
 
             if (!string.IsNullOrEmpty(phenology))
-                query = query.Where(x =>
-                    x.Observation.phenologicalEntities.phenlogicalStageEntity.stageName.Any(p =>
-                        p.ToString().Contains(phenology)));
+            {
+                query = query.Where(x => x.Observation.phenologicalEntities.phenlogicalStageEntity.stageName.Contains(phenology));
+
+
+            }
 
             if (!string.IsNullOrEmpty(disease))
-                query = query.Where(x =>
-                    x.Observation.healthandDiseaseEntity.ObservedDisease.Any(h =>
-                        h.ToString().Contains(disease)));
+            {
+                query = query.Where(x => x.Observation.healthandDiseaseEntity.Diseases.name.Contains(disease));
+            }
 
             if (!string.IsNullOrEmpty(insect))
-                query = query.Where(x =>
-                    x.Observation.healthandDiseaseEntity.Insects.Any(h =>
-                        h.ToString().Contains(insect)));
+            {
+                query = query.Where(x => x.Observation.healthandDiseaseEntity.Insects.name.Contains(insect));
+            }
+            
+
+
+
+
             var result = query
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -101,37 +113,65 @@ namespace WebApplication1.Controllers
                         name = o.Tree.rootstock.name
                        
                     },
-                    phenological = new Phenological
+                    phenological = new PhenologicalEntities
                     {
-                        stageName = o.Observation.phenologicalEntities.phenlogicalStageEntity.stageName,
+                        phenlogicalStageEntity = new PhenologicalStageEntity
+                        {
+                            
+                            stageName = o.Observation.phenologicalEntities.phenlogicalStageEntity.stageName,
+                            
+                        },
+                        
+                       
                         StageDate = o.Observation.phenologicalEntities.StageDate,
                         growthScale = o.Observation.phenologicalEntities.growthScale,
                         blossomDensity = o.Observation.phenologicalEntities.blossomDensity
                     },
-                    healthandDisease = new HealthandDisease
-                    {
-                        ObservedDisease = o.Observation.healthandDiseaseEntity.ObservedDisease,
-                        ObservedDiseaseLevel = o.Observation.healthandDiseaseEntity.ObservedDiseaseLevel,
-                        Insects = o.Observation.healthandDiseaseEntity.Insects,
-                        InsectsLevel = o.Observation.healthandDiseaseEntity.InsectsLevel,
-                        PhysiologicalDisorder = o.Observation.healthandDiseaseEntity.PhysiologicalDisorder,
-                        PhysiologicalDisorderLevel = o.Observation.healthandDiseaseEntity.PhysiologicalDisorderLevel,
+                    healthandDisease = new HealthandDiseaseEntity { 
+                        Diseases=new DiseasesEntity
+                        {
+                            name = o.Observation.healthandDiseaseEntity.Diseases.name,
+                            level = o.Observation.healthandDiseaseEntity.Diseases.level
+
+                        },
+                        Insects= new InsectsEntity
+                        {
+                            name = o.Observation.healthandDiseaseEntity.Insects.name,
+                            level = o.Observation.healthandDiseaseEntity.Insects.level
+                        },
+                       
+                        Disorder=new DisorderEntity
+                        {
+                            name = o.Observation.healthandDiseaseEntity.Disorder.name,
+                            level = o.Observation.healthandDiseaseEntity.Disorder.level
+                        },
+
+                       
                         NurientDefiency = o.Observation.healthandDiseaseEntity.NurientDefiency,
                         DamageReport = o.Observation.healthandDiseaseEntity.DamageReport
                     },
-                    managementPractices = new ManagementPractices
+                   managementPractices= new ManagementPraticesEntity
                     {
-                        fertilizer = o.Observation.managementPraticesEntity.fertilizer,
-                        fertilizerDateTime = o.Observation.managementPraticesEntity.fertilizerDateTime,
-                        fertilizerAmount = o.Observation.managementPraticesEntity.fertilizerAmount,
-                        micronutrients = o.Observation.managementPraticesEntity.micronutrients,
-                        micronutrientsDateTime = o.Observation.managementPraticesEntity.micronutrientsDateTime,
-                        micronutrientsAmount = o.Observation.managementPraticesEntity.micronutrientsAmount,
-                        weedControl = o.Observation.managementPraticesEntity.weedControl,
-                        weedControlDateTime = o.Observation.managementPraticesEntity.weedControlDateTime,
-                        weedControlAmount = o.Observation.managementPraticesEntity.weedControlAmount
+                       Fertilizer=new FertilizerEntity { name = o.Observation.managementPraticesEntity.Fertilizer.name,
+                           amountUsed = o.Observation.managementPraticesEntity.Fertilizer.amountUsed,
+                       fertilizerDateTime = o.Observation.managementPraticesEntity.Fertilizer.fertilizerDateTime,
+                       },
+                       MicroNutrient=new MicroNutrientsEntity
+                       {
+                           name = o.Observation.managementPraticesEntity.MicroNutrient.name,
+                           amountUsed = o.Observation.managementPraticesEntity.MicroNutrient.amountUsed,
+                           microNutrientDateTime = o.Observation.managementPraticesEntity.MicroNutrient.microNutrientDateTime,
+                       },
+                      WeedControl = new WeedControlEnity
+                      {
+                          name = o.Observation.managementPraticesEntity.WeedControl.name,
+                          amountUsed = o.Observation.managementPraticesEntity.WeedControl.amountUsed,
+                          weedControlDateTime = o.Observation.managementPraticesEntity.WeedControl.weedControlDateTime,
+                      },
+
+
                     },
-                    yieldandProductivity = new YieldandProductivity
+                    yieldandProductivity = new YieldandProductivityEntity
                     {
                         
                         fruitSetPercent = o.Observation.yieldandProductivityEntity.fruitSetPercent,
