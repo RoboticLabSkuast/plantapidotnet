@@ -67,11 +67,11 @@ app.Run();
 /*
  * 
  * 
- 
+ dotnet publish -c Release -o ./publish
+cd publish
+dotnet WebApplication1.dll --urls "http://0.0.0.0:5054"
 
-dotnet publish -c Release -o ./publish
+dotnet ef migrations add InitialCreate
+dotnet ef database update
 
- 
- dotnet WebApplication1.dll --urls "http://0.0.0.0:5054"
- 
  */
