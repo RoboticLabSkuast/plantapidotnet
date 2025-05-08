@@ -122,7 +122,7 @@ namespace WebApplication1.Controllers
                             
                         },
                         
-                       
+                        
                         StageDate = o.Observation.phenologicalEntities.StageDate,
                         growthScale = o.Observation.phenologicalEntities.growthScale,
                         blossomDensity = o.Observation.phenologicalEntities.blossomDensity
@@ -146,7 +146,7 @@ namespace WebApplication1.Controllers
                             level = o.Observation.healthandDiseaseEntity.Disorder.level
                         },
 
-                       
+                       PlantHealth=o.Observation.healthandDiseaseEntity.PlantHealth,
                         NurientDefiency = o.Observation.healthandDiseaseEntity.NurientDefiency,
                         DamageReport = o.Observation.healthandDiseaseEntity.DamageReport
                     },

@@ -179,7 +179,7 @@ public class TreeDataController : ControllerBase
 
         var healthandEntity = new HealthandDiseaseEntity
         {
-
+            PlantHealth = treeApidata.healthandDisease.planthealth,
             Diseases = diseasesEntity,
 
             Insects = insectsEntity,

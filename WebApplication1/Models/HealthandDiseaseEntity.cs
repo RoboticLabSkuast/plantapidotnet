@@ -24,7 +24,6 @@ namespace WebApplication1.Models
       
         public string NurientDefiency { get; set; } = string.Empty;
         public string DamageReport { get; set; } = string.Empty;
-
-
+        public int PlantHealth { get;  set; }
     }
 }

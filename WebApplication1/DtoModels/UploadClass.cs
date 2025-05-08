@@ -25,6 +25,7 @@ namespace datacapture.model
     }
     public class HealthandDisease
     {
+        public int planthealth { get; set; }
         public string ObservedDisease { get; set; } = string.Empty;
         public int ObservedDiseaseLevel { get; set; }
         public string Insects { get; set; } = string.Empty;
