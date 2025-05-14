@@ -39,7 +39,7 @@ public class UserController : ControllerBase
 
             year = user.year,
             department = user.department,
-            password = user.password, // In a real application, hash the password before storing it
+            password =user.password,
             bio = user.bio
         };
         _context.expertEntity.Add(newUser);
@@ -101,7 +101,10 @@ public class UserController : ControllerBase
         {
             return NotFound(new { Status = "Fail", Message = "No users found" });
         }
-
+        foreach (var user in users)
+        {
+            user.password = ""; // Clear the password before returning the user data
+        }
         return Ok(new { Status = "Success", Users = users });
     }
 

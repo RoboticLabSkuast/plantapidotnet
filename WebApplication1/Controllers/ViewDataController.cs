@@ -32,7 +32,10 @@ namespace WebApplication1.Controllers
             [FromQuery] string rootstock = null,
             [FromQuery] string phenology = null,
             [FromQuery] string disease = null,
-            [FromQuery] string insect = null
+            [FromQuery] string insect = null,
+            [FromQuery] string qrcodeTree = null
+
+
 
 
             )
@@ -52,6 +55,12 @@ namespace WebApplication1.Controllers
                 o => o.crop_id,
                 t => t.crop_id,
                 (o, t) => new { Observation = o, Tree = t });
+
+            if (!string.IsNullOrEmpty(qrcodeTree))
+            {
+                query = query.Where(x => x.Tree.crop.qrcodeTree.Contains(qrcodeTree));
+            }
+
             if (!string.IsNullOrEmpty(cropName))
             {
                 query = query.Where(x => x.Observation.crop.name.Contains(cropName));
