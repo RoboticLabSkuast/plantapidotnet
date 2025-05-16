@@ -284,16 +284,16 @@ public class TreeDataController : ControllerBase
         // 5. Create main ObservationEntity
         var observation = new ObservationEntity
         {
-            crop_id = crop.crop_id,
+         //   crop_id = crop.crop_id,
             crop = crop,
             ImagePath= imagePath,
-            phenologicalEntities_Id = phenologicalEntity.phenologicalEntities_Id,
+          //  phenologicalEntities_Id = phenologicalEntity.phenologicalEntities_Id,
             phenologicalEntities = phenologicalEntity,
-            healthandDiseaseEntity_Id = healthandEntity.healthandDiseaseEntity_Id,
+          //  healthandDiseaseEntity_Id = healthandEntity.healthandDiseaseEntity_Id,
             healthandDiseaseEntity = healthandEntity,
-            managementPraticesEntity_Id = managementEntity.managementPraticesEntity_Id,
+         //   managementPraticesEntity_Id = managementEntity.managementPraticesEntity_Id,
             managementPraticesEntity = managementEntity,
-            yieldandProductivityEntity_Id = yieldEntity.yieldandProductivityEntity_Id,
+         //   yieldandProductivityEntity_Id = yieldEntity.yieldandProductivityEntity_Id,
             yieldandProductivityEntity = yieldEntity
         };
         _context.observationEntity.Add(observation);
